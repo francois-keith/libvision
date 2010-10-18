@@ -58,7 +58,7 @@ Image<unsigned char>* ImageBuffer::dequeue() {
 	
 	im = tmp->image ;
 	
-	tmp->Prev = 0 ;
+	tmp->Prev = NULL ;
 	tmp->image = NULL ;
 	tmp->Next = Trash ;
 	Trash = tmp ;
@@ -69,5 +69,18 @@ Image<unsigned char>* ImageBuffer::dequeue() {
 
 }
 
+void ImageBuffer::enqueue( Image<unsigned char>* img ) {
+	if ( Trash == NULL )
+		return ;
+	ImageBuffer_elem* tmp ;
+	tmp = Trash ;
 
+	Trash = tmp->Next ;
+
+	tmp->Next = First ;
+	tmp->Prev = First->Prev ;
+	tmp->image = img ;
+	tmp->Prev->Next = tmp ;
+	tmp->Next->Prev = tmp ;
+}
 

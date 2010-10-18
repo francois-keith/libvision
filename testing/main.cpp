@@ -1,8 +1,6 @@
 #include <iostream>
 
-#include <visionlib/image.h>
-#include <visionlib/visionprocess.h>
-#include <visionlib/imagebuffer.h>
+#include <visionlib.h>
 
 using namespace std ;
 

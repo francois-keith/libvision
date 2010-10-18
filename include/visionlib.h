@@ -3,7 +3,7 @@
 
 #include <visionlib/image.h>
 #include <visionlib/imagebuffer.h>
-#include <visionlib/imageprocess.h>
+#include <visionlib/visionprocess.h>
 
 
 
