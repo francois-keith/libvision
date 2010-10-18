@@ -1,3 +1,4 @@
-include_HEADERS = 	image.h \
-			imagebuffer.h \
-			visionprocess.h 
+include_HEADERS = 	visionlib/image.h \
+			visionlib/imagebuffer.h \
+			visionlib/visionprocess.h \
+			visionlib.h
