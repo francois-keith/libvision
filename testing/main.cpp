@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "image.h"
-#include "visionprocess.h"
+#include <visionlib/image.h>
+#include <visionlib/visionprocess.h>
 
 using namespace std ;
 

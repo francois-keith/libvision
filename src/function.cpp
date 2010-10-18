@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "image.h"
+#include <visionlib/image.h>
 
 using namespace std ;
 
