@@ -1,4 +1,4 @@
-LDADD = ../src/libvision.la
+LDADD = ../src/libvisionlib.la
 AM_CPPFLAGS = -I$(srcdir)/../include
 
 
