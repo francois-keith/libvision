@@ -42,12 +42,12 @@ class VisionProcess {
 	void   enqueue_image ( Image<unsigned char>* img, int i ) ;	// Each frame must be sent back to the ring buffer once you're done with it.
 
 	void register_to_cam (int cam ) ;				// Registers to receive frames from cam NumCam. Next RingBuffer is affected to this cam.
+	
+	VisionServer* vision_server ;					// Pointer to the VisionServer
 
 	private:
 
-	VisionServer* vision_server ;					// Pointer to the VisionServer
 	string process_name ;						// Name of the process
-
 
 	vector<ImageBuffer> buffers ;					// A vector with the ringbuffers we've registered to.
 
