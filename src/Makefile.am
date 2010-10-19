@@ -2,5 +2,6 @@ AM_CPPFLAGS = -I$(srcdir)/../include
 
 lib_LTLIBRARIES = libvisionlib.la
 
-libvisionlib_la_SOURCES = imagebuffer.cpp
+libvisionlib_la_SOURCES = imagebuffer.cpp \
+			  visionprocess.cpp
 

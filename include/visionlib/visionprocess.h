@@ -1,20 +1,29 @@
 #ifndef ROBOTVISION_VISIONPROCESS_H
 #define ROBOTVISION_VISIONPROCESS_H
 
-/*
+#include <vector>
+#include <string>
 
-#include "image.h"
-#include "image_buffer.h"
+#include <visionlib/image.h>
+#include <visionlib/imagebuffer.h>
 
 using namespace std ;
 
+class VisionProcess ;
+class VisionServer  ;
+
+class VisionServer {
+	public:
+		virtual VisionProcess* get_process_by_name (string) = 0 ;			// retrieves a pointer to one of the processes run by the server
+		virtual void register_to_cam ( VisionProcess*, int cam, int ringbuffer ) = 0 ;  // registers a process to a cam
+};
 
 class VisionProcess {
 
 
 	public:
 
-	VisionProcess ( VisionServer* srv ) ;
+	VisionProcess ( VisionServer* srv, string name ) ;
 	~VisionProcess() ;
 
 	int push_image( Image<unsigned char>*, int numcam ) ;		// Called by the VisionServer. Pushes the image from Cam numcam to the corresponding ringbuffer. 
@@ -36,15 +45,13 @@ class VisionProcess {
 
 	private:
 
-	VisionServer* vision_serveur ;					// Pointer to the VisionServer
+	VisionServer* vision_server ;					// Pointer to the VisionServer
 	string process_name ;						// Name of the process
 
 
-	vector<RingBuffer> ringbuffers ;				// A vector with the ringbuffers we've registered to.
+	vector<ImageBuffer> buffers ;					// A vector with the ringbuffers we've registered to.
 
-	}
-*/
+} ;
 
-int function ( int, char**, char** ) ;
 
 #endif
