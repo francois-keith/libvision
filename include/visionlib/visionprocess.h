@@ -32,7 +32,8 @@ class VisionProcess {
 	
 	virtual bool pre_fct()  = 0 ;					// Will be called first by VisionServer. Put your initialisation stuff here.
 	virtual bool post_fct() = 0 ;					// Will be called by VisionServer before Terminaison. Close/Save all you need here.
-	virtual bool main_fct() = 0 ;					// Will be called by the VisionServer. Thread main function
+
+	virtual void* main_fct() = 0 ;					// Will be called by the VisionServer. Thread main function
 
 	protected:
 
