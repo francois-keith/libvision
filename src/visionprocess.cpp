@@ -2,8 +2,7 @@
 
 using namespace std ;
 
-VisionProcess::VisionProcess( VisionServer* srv, string name ) {
-	process_name = name ;
+VisionProcess::VisionProcess( VisionServer* srv ) {
 	vision_server = srv ;
 }
 

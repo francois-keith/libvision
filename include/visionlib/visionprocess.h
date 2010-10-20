@@ -23,7 +23,7 @@ class VisionProcess {
 
 	public:
 
-	VisionProcess ( VisionServer* srv, string name ) ;
+	VisionProcess ( VisionServer* srv) ;
 	~VisionProcess() ;
 
 	int push_image( Image<unsigned char>*, int numcam ) ;		// Called by the VisionServer. Pushes the image from Cam numcam to the corresponding ringbuffer. 
@@ -33,8 +33,6 @@ class VisionProcess {
 	virtual bool pre_fct()  = 0 ;					// Will be called first by VisionServer. Put your initialisation stuff here.
 	virtual bool post_fct() = 0 ;					// Will be called by VisionServer before Terminaison. Close/Save all you need here.
 	virtual bool main_fct() = 0 ;					// Will be called by the VisionServer. Thread main function
-
-	virtual string get_msg()  = 0 ;					// Must return a string with whatever message you want to display
 
 	protected:
 
