@@ -51,5 +51,7 @@ class VisionProcess {
 
 } ;
 
+typedef VisionProcess* create_fct(VisionServer*);
+typedef void destroy_fct(VisionProcess*);
 
 #endif
