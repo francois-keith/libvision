@@ -16,6 +16,7 @@ class VisionServer {
 	public:
 		virtual VisionProcess* get_process_by_name (string) = 0 ;			// retrieves a pointer to one of the processes run by the server
 		virtual void register_to_cam ( VisionProcess*, int cam, int ringbuffer ) = 0 ;  // registers a process to a cam
+		virtual void stop() = 0 ;							// stops the server
 };
 
 class VisionProcess {
