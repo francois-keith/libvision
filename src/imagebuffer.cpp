@@ -1,6 +1,8 @@
 #include <visionlib/image.h>
 #include <visionlib/imagebuffer.h>
 
+using namespace std ;
+
 ImageBuffer::ImageBuffer ( ImageRef img_size, int N ) {
 
 	First = NULL ;
@@ -26,6 +28,8 @@ ImageBuffer::ImageBuffer ( ImageRef img_size, int N ) {
 }
 
 ImageBuffer::~ImageBuffer () {
+
+
 	while ( size != 0 ) {
 		Image<unsigned char>* img = dequeue() ;
 		delete img ;
@@ -37,6 +41,7 @@ ImageBuffer::~ImageBuffer () {
 		Trash = Trash->Next ;
 		delete tmp ;
 	}
+
 }
 
 int ImageBuffer::get_size() {
@@ -53,8 +58,13 @@ Image<unsigned char>* ImageBuffer::dequeue() {
 	Image<unsigned char>*	im ;
 	
 	tmp = First ;
-	First = tmp->Next ;
-	First->Prev = tmp->Prev ;
+
+	if (size != 1 ) {
+		First = tmp->Next ;
+		First->Prev = tmp->Prev ;
+	} else { 
+		First = NULL ;
+	}
 	
 	im = tmp->image ;
 	
@@ -77,10 +87,19 @@ void ImageBuffer::enqueue( Image<unsigned char>* img ) {
 
 	Trash = tmp->Next ;
 
-	tmp->Next = First ;
-	tmp->Prev = First->Prev ;
+	if (First != NULL ) {
+		tmp->Next = First ;
+		tmp->Prev = First->Prev ;
+	} else {
+		tmp->Next = tmp ;
+		tmp->Prev = tmp ;
+	}
+
 	tmp->image = img ;
 	tmp->Prev->Next = tmp ;
 	tmp->Next->Prev = tmp ;
+
+	First = tmp ;
+	size += 1 ;
 }
 

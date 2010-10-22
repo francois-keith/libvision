@@ -6,6 +6,7 @@
 
 #include <visionlib/image.h>
 #include <visionlib/imagebuffer.h>
+#include <visionlib/camera.h>
 
 using namespace std ;
 
@@ -15,6 +16,7 @@ class VisionServer  ;
 class VisionServer {
 	public:
 		virtual VisionProcess* get_process_by_name (string) = 0 ;			// retrieves a pointer to one of the processes run by the server
+		virtual CalibratedCamera<unsigned char>* get_camera ( int i )  = 0 ;				// retrieves a pointer to the camera number ith 
 		virtual void register_to_cam ( VisionProcess*, int cam, int ringbuffer ) = 0 ;  // registers a process to a cam
 		virtual void stop() = 0 ;							// stops the server
 };
@@ -49,7 +51,7 @@ class VisionProcess {
 
 	string process_name ;						// Name of the process
 
-	vector<ImageBuffer> buffers ;					// A vector with the ringbuffers we've registered to.
+	vector<ImageBuffer*> buffers ;					// A vector with the ringbuffers we've registered to.
 
 } ;
 

@@ -18,6 +18,7 @@ template < typename Pix > class Image
 
 public:
 
+  Image ( ImageRef imgref ) ;
   Image ( int width, int height);
   ~Image ();
 
@@ -63,7 +64,15 @@ Image<Pix>::Image (int w, int h)
 
 }
 
-
+template<typename Pix>
+Image<Pix>::Image( ImageRef ir ) {
+	 width = ir.x;
+	 height = ir.y;
+	 num_pixels = ir.x * ir.y;
+	 data = (Pix *) malloc ( num_pixels * sizeof (Pix) );
+	 if (data == NULL)
+		throw "malloc error" ;
+}
 
 template < typename Pix >
 Image<Pix>::~Image ()

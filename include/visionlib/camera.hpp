@@ -1,0 +1,29 @@
+template <typename T>
+GenericCamera<T>::GenericCamera( uint64_t id ) {
+	gid = id ;
+	size.x = 1 ;
+	size.y = 1 ;
+}
+
+template <typename T>
+uint64_t GenericCamera<T>::get_gid() {
+	return gid ;
+}
+
+template <typename T>
+ImageRef GenericCamera<T>::get_size() {
+	return size ;
+}
+
+template <typename T>
+void GenericCamera<T>::set_size ( int x, int y ) {
+	size.x = x ;
+	size.y = y ;
+}
+
+
+template <typename T>
+CalibratedCamera<T>::CalibratedCamera( uint64_t gid )
+: GenericCamera<T>( gid ) {
+
+}
