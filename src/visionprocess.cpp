@@ -24,7 +24,7 @@ Image<unsigned char>* VisionProcess::dequeue_image( int i ) {
 }
 
 void VisionProcess::enqueue_image( Image<unsigned char>* img, int i ) {
-
+	buffers[i]->push ( img ) ;
 }
 
 void VisionProcess::register_to_cam ( int i ) {

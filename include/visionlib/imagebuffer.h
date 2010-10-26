@@ -9,7 +9,7 @@ class ImageBuffer {
 
 	class ImageBuffer_elem {
 		public:
-		Image<unsigned char> *image ;
+		Image<unsigned char>* image ;
 		ImageBuffer_elem *Next ;
 		ImageBuffer_elem *Prev ;
 	} ;
@@ -24,9 +24,6 @@ class ImageBuffer {
 
 	ImageBuffer( ImageRef image_size, int N ) ;	    	    // Allocates a ringbuffer of N images (specified size)
 	~ImageBuffer() ;
-
-	int  get_size() ;					    // returns the number of images in the ringbuffer
-	bool is_empty() ;					    // returns true if the ringbuffer is empty
 
 	Image<unsigned char>* dequeue () ;					    // Removes the latest frame from the ringbuffer and returns it
 	void enqueue ( Image<unsigned char>* ) ;				    // Puts back a frame inside the buffer

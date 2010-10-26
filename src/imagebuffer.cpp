@@ -1,3 +1,7 @@
+#include <iostream>
+
+#include <string.h>
+
 #include <visionlib/image.h>
 #include <visionlib/imagebuffer.h>
 
@@ -44,16 +48,13 @@ ImageBuffer::~ImageBuffer () {
 
 }
 
-int ImageBuffer::get_size() {
-	return size ;
-}
-
 Image<unsigned char>* ImageBuffer::dequeue() {
 	
-	if ( size == 0 ) {
-		return NULL ;
+	
+	while (size==0 ) {
+		usleep (10 ) ;
 	}
-
+	
 	ImageBuffer_elem* tmp ;
 	Image<unsigned char>*	im ;
 	
@@ -62,6 +63,7 @@ Image<unsigned char>* ImageBuffer::dequeue() {
 	if (size != 1 ) {
 		First = tmp->Next ;
 		First->Prev = tmp->Prev ;
+		First->Prev->Next = First ;
 	} else { 
 		First = NULL ;
 	}
@@ -80,8 +82,12 @@ Image<unsigned char>* ImageBuffer::dequeue() {
 }
 
 void ImageBuffer::enqueue( Image<unsigned char>* img ) {
-	if ( Trash == NULL )
-		return ;
+	
+	if ( Trash == NULL ) {
+		cerr << " ERREUR " << endl ;
+		exit(0) ;
+	}
+
 	ImageBuffer_elem* tmp ;
 	tmp = Trash ;
 
@@ -90,16 +96,37 @@ void ImageBuffer::enqueue( Image<unsigned char>* img ) {
 	if (First != NULL ) {
 		tmp->Next = First ;
 		tmp->Prev = First->Prev ;
+
+		First->Prev->Next = tmp ;
+		First->Prev = tmp ;
 	} else {
 		tmp->Next = tmp ;
 		tmp->Prev = tmp ;
+		First = tmp ;
 	}
 
 	tmp->image = img ;
-	tmp->Prev->Next = tmp ;
-	tmp->Next->Prev = tmp ;
 
-	First = tmp ;
 	size += 1 ;
 }
+
+void ImageBuffer::push  ( Image<unsigned char>* img ) {
+
+	if ( size == 0 ) {
+		cerr << " Cannot push in empty stack " << endl ;
+		exit(0) ;
+	}
+
+	memcpy( First->Prev->image->get_raw_data(), 
+			img->get_raw_data(), 
+			img->get_width() * img->get_height() * sizeof (unsigned char ) ) ;
+
+	First = First->Prev ;
+
+}
+
+
+
+
+
 
