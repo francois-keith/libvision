@@ -17,15 +17,16 @@ VisionProcess::~VisionProcess() {
 }
 
 int VisionProcess::push_image ( Image<unsigned char> *img, int numcam ) {
-
+	buffers[numcam]->push( img ) ;
 }
 
 Image<unsigned char>* VisionProcess::dequeue_image( int i ) {
+	return buffers[i]->dequeue() ;
 
 }
 
 void VisionProcess::enqueue_image( Image<unsigned char>* img, int i ) {
-	buffers[i]->push ( img ) ;
+	buffers[i]->enqueue ( img ) ;
 }
 
 void VisionProcess::register_to_cam ( int i ) {
