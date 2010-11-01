@@ -27,7 +27,6 @@ ImageBuffer::~ImageBuffer () {
 }
 
 Image<unsigned char>* ImageBuffer::dequeue() {
-	cout << "deq \n"  ;
 	Image<unsigned char> * tmp ;
 	pthread_mutex_lock( &mutex );
 	while ( frames.size() == 0 ) {
@@ -42,14 +41,12 @@ Image<unsigned char>* ImageBuffer::dequeue() {
 }
 
 void ImageBuffer::enqueue( Image<unsigned char>* img ) {
-	cout << "enq \n" ;
 	pthread_mutex_lock( &mutex ) ;
 	trash.push_back( img ) ;
 	pthread_mutex_unlock(&mutex) ;
 }
 
 void ImageBuffer::push  ( Image<unsigned char>* img ) {
-	cout << "push\n" ;
 	Image<unsigned char> *tmp ;
 	pthread_mutex_lock( &mutex ) ;
 	tmp = trash.back() ;
