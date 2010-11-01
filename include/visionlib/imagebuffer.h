@@ -1,34 +1,31 @@
 #ifndef ROBOTVISION_IMAGEBUFFER_H
 #define ROBOTVISION_IMAGEBUFFER_H
 
+#include <vector>
+#include <pthread.h>
 #include "image.h"
+
+using namespace std ;
 
 class ImageBuffer {
 
 	private:
 
-	class ImageBuffer_elem {
-		public:
-		Image<unsigned char>* image ;
-		ImageBuffer_elem *Next ;
-		ImageBuffer_elem *Prev ;
-	} ;
+	vector<Image<unsigned char>*> frames ;
+	vector<Image<unsigned char>*> trash  ;
+	
 
-	ImageBuffer_elem *First ;
-	int size ;
-
-	ImageBuffer_elem *Trash ;
-
+	pthread_mutex_t mutex ; 
 
 	public:
 
-	ImageBuffer( ImageRef image_size, int N ) ;	    	    // Allocates a ringbuffer of N images (specified size)
+	ImageBuffer( ImageRef image_size, int N ) ;	    	    		    // Allocates a buffer of N images (specified size)
 	~ImageBuffer() ;
 
-	Image<unsigned char>* dequeue () ;					    // Removes the latest frame from the ringbuffer and returns it
+	Image<unsigned char>* dequeue () ;					    // Removes next frame from the buffer and returns it. Blocking call.
 	void enqueue ( Image<unsigned char>* ) ;				    // Puts back a frame inside the buffer
 
-	void push ( Image<unsigned char>* ) ;			            // The provided image is copied inside the ringbuffer
+	void push ( Image<unsigned char>* ) ;			            	    // The provided image is copied into the buffer
 } ;
 
 #endif
