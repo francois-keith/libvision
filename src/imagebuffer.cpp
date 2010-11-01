@@ -49,6 +49,12 @@ void ImageBuffer::enqueue( Image<unsigned char>* img ) {
 void ImageBuffer::push  ( Image<unsigned char>* img ) {
 	Image<unsigned char> *tmp ;
 	pthread_mutex_lock( &mutex ) ;
+	
+	if ( trash.size() == 0 ) {
+		pthread_mutex_unlock( &mutex ) ;
+		return ;
+	}
+	
 	tmp = trash.back() ;
 	trash.pop_back() ;
 	memcpy ( tmp->get_raw_data() , img->get_raw_data(), img->get_width() * img->get_height() * sizeof ( unsigned char ) ) ;
