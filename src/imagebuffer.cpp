@@ -9,7 +9,7 @@ using namespace std ;
 ImageBuffer::ImageBuffer ( ImageRef img_size, int N ) {
 	frames.reserve( N ) ;								//FIXME voir comment utiliser mieux le constructeur de vector
 	trash.reserve( N ) ;
-	mutex = PTHREAD_MUTEX_INITIALIZER ;
+	pthread_mutex_init(&mutex, NULL);
 	for (int i=0; i<N; i++) {
 		Image<unsigned char>* img ;
 		img = new Image<unsigned char> ( img_size.x, img_size.y ) ;
