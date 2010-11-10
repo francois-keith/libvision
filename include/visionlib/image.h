@@ -35,7 +35,7 @@ public:
     return ImageRef (width, height);
   }
 
-  void* get_raw_data()
+  Pix* get_raw_data()
   {
    return data ;
   }
