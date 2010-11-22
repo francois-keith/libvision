@@ -7,7 +7,7 @@
 
 using namespace std ;
 
-vector<ImageRef> fast9_detect_nonmax  ( Image<unsigned char>* img, double b );
+void fast9_detect  ( Image<unsigned char>* img, double b, vector<ImageRef> *ret  );
 
 // vector<ImageRef> fast10_detect_nonmax ( Image<unsigned char>* img, double b );
 // vector<ImageRef> fast11_detect_nonmax ( Image<unsigned char>* img, double b );
