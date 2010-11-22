@@ -4,4 +4,5 @@ nobase_include_HEADERS = 	visionlib/camera.h\
 				visionlib/imagebuffer.h \
 				visionlib/matrice.h \
 				visionlib/visionprocess.h \
+				visionlib/corners/fast.h \
 				visionlib.h

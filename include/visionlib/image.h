@@ -6,8 +6,12 @@
 class ImageRef
 {
 public:
+
   unsigned int x;
   unsigned int y;
+
+  ImageRef(int X, int Y ) { x = X;  y = Y; }
+  ImageRef() { }
 };
 
 
