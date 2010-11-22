@@ -8,9 +8,10 @@
 using namespace std ;
 
 vector<ImageRef> fast9_detect_nonmax  ( Image<unsigned char>* img, double b );
-vector<ImageRef> fast10_detect_nonmax ( Image<unsigned char>* img, double b );
-vector<ImageRef> fast11_detect_nonmax ( Image<unsigned char>* img, double b );
-vector<ImageRef> fast12_detect_nonmax ( Image<unsigned char>* img, double b );
+
+// vector<ImageRef> fast10_detect_nonmax ( Image<unsigned char>* img, double b );
+// vector<ImageRef> fast11_detect_nonmax ( Image<unsigned char>* img, double b );
+// vector<ImageRef> fast12_detect_nonmax ( Image<unsigned char>* img, double b );
 
 
 

@@ -2,7 +2,7 @@
 #include <visionlib/corners/fast.h>
 
 
-vector<ImageRef> fast9_detect_nonmax ( Image<unsigned char>* img , double b ) {
+vector<ImageRef> fast9_detect ( Image<unsigned char>* img , double b ) {
 
 	xy* result ;
 	vector<ImageRef> ret ;
@@ -12,21 +12,6 @@ vector<ImageRef> fast9_detect_nonmax ( Image<unsigned char>* img , double b ) {
 		ret.push_back ( ImageRef(result[i].x, result[i].y) ) ;
 	free (result) ;
 	return ret ;
-}
-
-
-vector<ImageRef> fast10_detect_nonmax ( Image<unsigned char>* img ) {
-
-}
-
-
-vector<ImageRef> fast11_detect_nonmax ( Image<unsigned char>* img ) {
-
-}
-
-
-vector<ImageRef> fast12_detect_nonmax ( Image<unsigned char>* img ) {
-
 }
 
 
