@@ -2,20 +2,7 @@
 #define VISIONLIB_IMAGE_H
 
 #include <stdlib.h>
-
-class ImageRef
-{
-public:
-
-  unsigned int x;
-  unsigned int y;
-
-  ImageRef(int X, int Y ) { x = X;  y = Y; }
-  ImageRef() { }
-};
-
-
-
+#include <visionlib/imageref.h>
 
 template < typename Pix > class Image
 {
@@ -43,6 +30,13 @@ public:
   {
    return data ;
   }
+
+  Pix& operator[] ( ImageRef coord )
+  {
+        return data[coord.x + coord.y * width] ;
+  }
+
+
 
 private:
 

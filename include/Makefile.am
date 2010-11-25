@@ -1,8 +1,10 @@
-nobase_include_HEADERS = 	visionlib/camera.h\
+nobase_include_HEADERS =	visionlib.h\
+				visionlib/camera.h\
 				visionlib/camera.hpp\
 				visionlib/image.h \
+				visionlib/imageref.h \
 				visionlib/imagebuffer.h \
 				visionlib/matrice.h \
 				visionlib/visionprocess.h \
 				visionlib/corners/fast.h \
-				visionlib.h
+				visionlib/corners/ShiTomasi.h

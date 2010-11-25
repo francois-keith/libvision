@@ -10,4 +10,6 @@ libvisionlib_la_SOURCES = imagebuffer.cpp \
 			  fast/fast_12.cpp \
 			  fast/fast.cpp \
 			  fast/nonmax.cpp \
-			  image_fast.cpp
+			  image_fast.cpp \
+			  ShiTomasi.cpp \
+			  imageref.cpp 
