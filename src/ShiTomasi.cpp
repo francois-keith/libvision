@@ -1,4 +1,5 @@
 #include <math.h>
+#include <iostream>
 #include <visionlib/corners/ShiTomasi.h>
 
 double ShiTomasi_score ( Image<unsigned char> image, int nHalfBoxSize, ImageRef irCenter)

@@ -2,8 +2,8 @@
 
 
 ImageRef &ImageRef::operator=(const ImageRef& source) {
-	x += source.x ;
-	y += source.y ;
+	x = source.x ;
+	y = source.y ;
 	return *this ;
 }
 
