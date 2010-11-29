@@ -2,7 +2,7 @@
 #include <iostream>
 #include <visionlib/corners/ShiTomasi.h>
 
-double ShiTomasi_score ( Image<unsigned char> image, int nHalfBoxSize, ImageRef irCenter)
+double ShiTomasi_score ( Image<unsigned char> & image, int nHalfBoxSize, ImageRef irCenter)
 {
   double dXX = 0;
   double dYY = 0;
@@ -11,10 +11,12 @@ double ShiTomasi_score ( Image<unsigned char> image, int nHalfBoxSize, ImageRef 
   ImageRef irStart = irCenter - ImageRef(nHalfBoxSize, nHalfBoxSize);
   ImageRef irEnd   = irCenter + ImageRef(nHalfBoxSize, nHalfBoxSize);
   
-  ImageRef ir;
+  ImageRef ir ;
+
   for(ir.y = irStart.y; ir.y<=irEnd.y; ir.y++)
     for(ir.x = irStart.x; ir.x<=irEnd.x; ir.x++)
       {
+
 	double dx = image[ir + ImageRef(1,0)] - image[ir - ImageRef(1,0)];
 	double dy = image[ir + ImageRef(0,1)] - image[ir - ImageRef(0,1)];
 	dXX += dx*dx;

@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <visionlib/imageref.h>
 
+#include <iostream>
+
 template < typename Pix > class Image
 {
 
