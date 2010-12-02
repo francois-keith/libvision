@@ -38,7 +38,7 @@ public:
         return data[coord.x + coord.y * width] ;
   }
 
-  Pix* scale() ;
+  Pix* scale(unsigned int scale_factor) ;
 
 
 private:
@@ -81,21 +81,25 @@ Image<Pix>::~Image ()
   free (data);
 }
 
-template< typename Pix >							//FIXME (beurk)
-Pix* Image<Pix>::scale() {
+template< typename Pix >							
+Pix* Image<Pix>::scale(unsigned int scale_factor) {
+    if(width % scale_factor != 0 || height % scale_factor != 0) { return 0; }
 	Pix* buff ;
-	buff = (Pix*) malloc ( num_pixels / 16 * sizeof(Pix) ) ;
-	for (int i=0; i<width; i+=4 )
-	for (int j=0; j<height; j+=4 ) {
+    buff = new Pix[num_pixels / (scale_factor*scale_factor) * sizeof(Pix)];
+	for (int i=0; i<width; i+=scale_factor ) {
+	for (int j=0; j<height; j+=scale_factor ) {
 		int acc =0 ;
-		for (int k=0; k<4; k++ )
-		for (int l=0; l<4; l++ )
-			acc+= (int) data[i+k+(j+l)*width] ;
-	
-		acc /= 16 ;
+		for (int k=0; k<scale_factor; k++ ) { 
+		for (int l=0; l<scale_factor; l++ ) {
+			acc += (int) data[i+k+(j+l)*width] ;
+        }
+        }	
 
-		buff[i/4+width/4 * j/4] = (Pix) acc ;
+		acc /= (scale_factor*scale_factor) ;
+
+		buff[i/scale_factor+width/scale_factor * j/scale_factor] = (Pix) acc ;
 	}
+    }
 
 	return buff ;
 }
