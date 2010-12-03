@@ -1,6 +1,7 @@
 template <typename T>
 GenericCamera<T>::GenericCamera( uint64_t id ) {
 	gid = id ;
+	active = false ;
 	size.x = 1 ;
 	size.y = 1 ;
 }

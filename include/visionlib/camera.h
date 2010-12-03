@@ -24,6 +24,10 @@ class GenericCamera {
 		int get_width()  { return size.x ; }
 		int get_height() { return size.y ; }
 		
+		bool is_active() { return active ; }
+		void set_active() { active = true ; }
+		void set_inactive() { active = false ; }
+
 		virtual bool start_cam() = 0 ;				// Initialisation / starts frame grabbing
 		virtual void grab_frame ( Image<T> * ) = 0 ;		// Fills the given image
 		virtual bool stop_cam() = 0 ;
@@ -36,6 +40,8 @@ class GenericCamera {
 
 		uint64_t gid ;
 		ImageRef size ;
+
+		bool active ;
 
 } ;
 
