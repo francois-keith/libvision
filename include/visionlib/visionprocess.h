@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
+#include <iostream>
 
 #include <visionlib/image.h>
 #include <visionlib/imagebuffer.h>
@@ -21,6 +23,7 @@ class VisionServer {
 
 		virtual void register_to_cam ( VisionProcess*, int cam, int ringbuffer ) = 0 ;  // registers a process to a cam
 		virtual void stop() = 0 ;							// stops the server main loop
+		virtual string get_plugin_path() = 0 ;						// returns the path to plugins conf directories
 };
 
 class VisionProcess {
@@ -28,16 +31,15 @@ class VisionProcess {
 
 	public:
 
-	VisionProcess ( VisionServer* srv) ;
+	VisionProcess ( VisionServer* srv, string name) ;
 	~VisionProcess() ;
 
 	int push_image( Image<unsigned char>*, int numcam ) ;		// Called by the VisionServer. Pushes the image from Cam numcam to the corresponding ringbuffer. 
 	
-	virtual string get_name() = 0 ;					// Must return a string with the name of the process (Called by VisionServ )
-	
+	string get_name() ;						// Returns a string with the name of the process 
+
 	virtual bool pre_fct()  = 0 ;					// Will be called first by VisionServer. Put your initialisation stuff here.
 	virtual bool post_fct() = 0 ;					// Will be called by VisionServer before Terminaison. Close/Save all you need here.
-
 	virtual void* main_fct() = 0 ;					// Will be called by the VisionServer. Thread main function
 
 	protected:
@@ -49,13 +51,19 @@ class VisionProcess {
 	
 	VisionServer* vision_server ;					// Pointer to the VisionServer
 
+	
+	ofstream 	err   ;						// file for error logging
+	ofstream	out   ;						// file for output logging
+
 	private:
 
 	string process_name ;						// Name of the process
+	string path_config ;						// Directory containing the config files for this plugin
 
 	vector<ImageBuffer*> buffers ;					// A vector with the ringbuffers we've registered to.
 
 } ;
+
 
 typedef VisionProcess* create_t(VisionServer*);
 typedef void destroy_t(VisionProcess*);
