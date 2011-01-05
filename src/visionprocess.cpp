@@ -67,13 +67,11 @@ string VisionProcess::get_configfile() {
 void VisionProcess::register_to_cam ( int i ) {
 
 	int nbuff ;
-	ImageBuffer* rbuff ;
 	ImageRef size ;
 
 	size = vision_server->get_camera(i)->get_size() ;
 
-	rbuff = new ImageBuffer( size ,5) ;
-	buffers.push_back ( rbuff ) ;
+	buffers.push_back ( new ImageBuffer(size, 5) ) ;
 
 	nbuff = buffers.size() - 1 ;
 

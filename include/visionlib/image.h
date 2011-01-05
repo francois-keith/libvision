@@ -59,9 +59,9 @@ Image<Pix>::Image (int w, int h)
   width = w;
   height = h;
   num_pixels = w * h;
-  data = (Pix *) malloc ( num_pixels * sizeof (Pix) );
+  data = new Pix[num_pixels];
   if (data == NULL)
-    throw "malloc error" ;
+    throw "new[] error" ;
 
 }
 
@@ -70,15 +70,15 @@ Image<Pix>::Image( ImageRef ir ) {
 	 width = ir.x;
 	 height = ir.y;
 	 num_pixels = ir.x * ir.y;
-	 data = (Pix *) malloc ( num_pixels * sizeof (Pix) );
+         data = new Pix[num_pixels];
 	 if (data == NULL)
-		throw "malloc error" ;
+		throw "new[] error" ;
 }
 
 template < typename Pix >
 Image<Pix>::~Image ()
 {
-  free (data);
+  delete[] data;
 }
 
 template< typename Pix >							

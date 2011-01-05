@@ -11,9 +11,7 @@ ImageBuffer::ImageBuffer ( ImageRef img_size, int N ) {
 	trash.reserve( N ) ;
 	pthread_mutex_init(&mutex, NULL);
 	for (int i=0; i<N; i++) {
-		Image<unsigned char>* img ;
-		img = new Image<unsigned char> ( img_size.x, img_size.y ) ;
-		trash.push_back ( img ) ;
+		trash.push_back ( new Image<unsigned char> (img_size.x, img_size.y) ) ;
 	}
 }
 
