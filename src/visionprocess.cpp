@@ -13,8 +13,8 @@ VisionProcess::VisionProcess( VisionServer* srv, string name ) {
 	process_name = name ;
 	path_config = srv->get_plugin_path() + process_name + "/" ;
 	mkdir( path_config.c_str() , S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-	//err.open( (path_config + "err.log" ).c_str() , ios::out ) ;
-	//out.open( (path_config + "out.log" ).c_str() , ios::out ) ;
+	err.open( (path_config + "err.log" ).c_str() , ios::out ) ;
+	out.open( (path_config + "out.log" ).c_str() , ios::out ) ;
 }
 
 VisionProcess::~VisionProcess() {
