@@ -38,6 +38,7 @@ class VisionProcess {
 	
 	string get_name() ;						// Returns a string with the name of the process 
 
+
 	virtual bool pre_fct()  = 0 ;					// Will be called first by VisionServer. Put your initialisation stuff here.
 	virtual bool post_fct() = 0 ;					// Will be called by VisionServer before Terminaison. Close/Save all you need here.
 	virtual void* main_fct() = 0 ;					// Will be called by the VisionServer. Thread main function
@@ -55,10 +56,13 @@ class VisionProcess {
 	ofstream 	err   ;						// file for error logging
 	ofstream	out   ;						// file for output logging
 
+ 	string get_configfile() ;					// Returns full path to config file
+	
 	private:
 
 	string process_name ;						// Name of the process
 	string path_config ;						// Directory containing the config files for this plugin
+	string config_file ;						// filename (with full path ) of the config file.
 
 	vector<ImageBuffer*> buffers ;					// A vector with the ringbuffers we've registered to.
 
