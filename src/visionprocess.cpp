@@ -47,6 +47,10 @@ string VisionProcess::get_name() {
 	return process_name ; 
 }
 
+string VisionProcess::get_configpath() {
+	return path_config ;
+}
+
 string VisionProcess::get_configfile() {
 	
 	ifstream fichier ;						// test if the file exists. If not, create it

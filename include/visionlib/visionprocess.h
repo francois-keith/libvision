@@ -57,7 +57,9 @@ class VisionProcess {
 	ofstream	out   ;						// file for output logging
 
  	string get_configfile() ;					// Returns full path to config file
-	
+
+ 	string get_configpath() ;					// Returns full path to config file
+
 	private:
 
 	string process_name ;						// Name of the process
