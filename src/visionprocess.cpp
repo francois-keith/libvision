@@ -71,7 +71,8 @@ void VisionProcess::register_to_cam ( int i ) {
 
 	size = vision_server->get_camera(i)->get_size() ;
 
-	buffers.push_back ( new ImageBuffer(size, 5) ) ;
+	ImageBuffer * tmp = new ImageBuffer(size, 5);
+	buffers.push_back ( tmp ) ;
 
 	nbuff = buffers.size() - 1 ;
 

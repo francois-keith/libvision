@@ -32,7 +32,7 @@ class VisionProcess {
 	public:
 
 	VisionProcess ( VisionServer* srv, string name) ;
-	~VisionProcess() ;
+	virtual ~VisionProcess() ;
 
 	int push_image( Image<unsigned char>*, int numcam ) ;		// Called by the VisionServer. Pushes the image from Cam numcam to the corresponding ringbuffer. 
 	

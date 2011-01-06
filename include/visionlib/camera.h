@@ -18,6 +18,7 @@ class GenericCamera {
 	public :
 
 		GenericCamera( uint64_t gid ) ;
+		virtual ~GenericCamera();
 		uint64_t get_gid() ;
 	
 		ImageRef get_size() ;					// returns frame size

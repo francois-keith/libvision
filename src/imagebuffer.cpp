@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string.h>
 
 #include <visionlib/image.h>
 #include <visionlib/imagebuffer.h>
@@ -11,16 +10,21 @@ ImageBuffer::ImageBuffer ( ImageRef img_size, int N ) {
 	trash.reserve( N ) ;
 	pthread_mutex_init(&mutex, NULL);
 	for (int i=0; i<N; i++) {
-		trash.push_back ( new Image<unsigned char> (img_size.x, img_size.y) ) ;
+		Image<unsigned char> * tmp = new Image<unsigned char>(img_size.x, img_size.y);
+		trash.push_back ( tmp ) ;
 	}
 }
 
 ImageBuffer::~ImageBuffer () {
 	for (int i=0; i<frames.size(); i++ )
+	{
 		delete frames[i] ;
+	}
 	frames.clear() ;
 	for (int i=0; i<trash.size(); i++ )
+	{
 		delete trash[i] ;
+	}
 	trash.clear() ;
 }
 
@@ -55,7 +59,7 @@ void ImageBuffer::push  ( Image<unsigned char>* img ) {
 	
 	tmp = trash.back() ;
 	trash.pop_back() ;
-	memcpy ( tmp->get_raw_data() , img->get_raw_data(), img->get_width() * img->get_height() * sizeof ( unsigned char ) ) ;
+	std::memcpy ( tmp->get_raw_data() , img->get_raw_data(), img->get_width() * img->get_height() * sizeof ( unsigned char ) ) ;
 	frames.push_back ( tmp ) ;
 	pthread_mutex_unlock( &mutex ) ;
 

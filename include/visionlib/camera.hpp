@@ -7,6 +7,10 @@ GenericCamera<T>::GenericCamera( uint64_t id ) {
 }
 
 template <typename T>
+GenericCamera<T>::~GenericCamera() {
+}
+
+template <typename T>
 uint64_t GenericCamera<T>::get_gid() {
 	return gid ;
 }
