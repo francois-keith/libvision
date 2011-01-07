@@ -59,7 +59,7 @@ void ImageBuffer::push  ( Image<unsigned char>* img ) {
 	
 	tmp = trash.back() ;
 	trash.pop_back() ;
-	std::memcpy ( tmp->get_raw_data() , img->get_raw_data(), img->get_width() * img->get_height() * sizeof ( unsigned char ) ) ;
+	memcpy ( tmp->get_raw_data() , img->get_raw_data(), img->get_width() * img->get_height() * sizeof ( unsigned char ) ) ;
 	frames.push_back ( tmp ) ;
 	pthread_mutex_unlock( &mutex ) ;
 
