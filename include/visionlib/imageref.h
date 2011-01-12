@@ -8,7 +8,8 @@ class ImageRef
 
   friend ImageRef operator+(const ImageRef &, const ImageRef &);
   friend ImageRef operator-(const ImageRef &, const ImageRef &);
-
+  friend bool operator==(const ImageRef &, const ImageRef &);
+  friend bool operator!=(const ImageRef &, const ImageRef &);
 public:
 
   unsigned int x;
