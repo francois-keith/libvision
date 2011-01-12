@@ -2,9 +2,10 @@
 #define VISIONLIB_IMAGE_H
 
 #include <stdlib.h>
+#include <cstring>
+#include <iostream>
 #include <visionlib/imageref.h>
 
-#include <iostream>
 
 template < typename Pix > class Image
 {
@@ -40,6 +41,7 @@ public:
 
   Pix* scale(unsigned int scale_factor) ;
 
+  Image<Pix>* clone() ;
 
 private:
 
@@ -103,4 +105,16 @@ Pix* Image<Pix>::scale(unsigned int scale_factor) {
 
 	return buff ;
 }
+
+
+template<typename Pix >
+Image<Pix>* Image<Pix>::clone() {
+	Image<Pix>* img ;
+	img = new Image<Pix>(width,height) ;
+	std::memcpy ( img->get_raw_data(), data, num_pixels*sizeof(Pix) ) ;
+	return img ;
+}
+
+
+
 #endif

@@ -1,4 +1,4 @@
-#include <string.h>
+#include <cstring>
 #include <iostream>
 
 #include <visionlib/image.h>
@@ -60,7 +60,9 @@ void ImageBuffer::push  ( Image<unsigned char>* img ) {
 	
 	tmp = trash.back() ;
 	trash.pop_back() ;
-	memcpy ( tmp->get_raw_data() , img->get_raw_data(), img->get_width() * img->get_height() * sizeof ( unsigned char ) ) ;
+	std::memcpy ( tmp->get_raw_data() , 
+		      img->get_raw_data(), 
+		      img->get_width() * img->get_height() * sizeof ( unsigned char ) ) ;
 	frames.push_back ( tmp ) ;
 	pthread_mutex_unlock( &mutex ) ;
 
