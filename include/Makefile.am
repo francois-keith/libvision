@@ -4,7 +4,6 @@ nobase_include_HEADERS =	visionlib.h\
 				visionlib/image.h \
 				visionlib/imageref.h \
 				visionlib/imagebuffer.h \
-				visionlib/matrice.h \
 				visionlib/visionprocess.h \
 				visionlib/corners/fast.h \
 				visionlib/corners/ShiTomasi.h

@@ -7,7 +7,6 @@
 #include <stdint.h>
 
 #include <visionlib/image.h>
-#include <visionlib/matrice.h>
 
 using namespace std ;
 
@@ -43,30 +42,6 @@ class GenericCamera {
 		ImageRef size ;
 
 		bool active ;
-
-} ;
-
-
-
-template< typename T >
-class CalibratedCamera : public GenericCamera<T> 
-{
-
-	public :
-		
-		CalibratedCamera( uint64_t id ) ;
-
-
-		virtual vector<double> get_parameters () = 0 ;				// pretty self explanatory. What is inside the vector	
-		virtual void  set_parameters ( vector<double> ) = 0 ; 			//	will depend on the underlying camera model
-
-		virtual double calibrate () = 0 ;					// FIXME have to decide wich arguments to give to this function
-
-		virtual ImageRef  project ( Matrice ) = 0 ;				// projects a 3D point
-
-		virtual void undistord ( Image<T>* input, Image<T>* output ) = 0 ;	// undistord an image
-
-		
 
 } ;
 

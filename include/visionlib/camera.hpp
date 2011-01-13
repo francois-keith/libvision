@@ -27,8 +27,3 @@ void GenericCamera<T>::set_size ( int x, int y ) {
 }
 
 
-template <typename T>
-CalibratedCamera<T>::CalibratedCamera( uint64_t gid )
-: GenericCamera<T>( gid ) {
-
-}
