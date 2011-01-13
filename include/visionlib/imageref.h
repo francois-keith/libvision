@@ -8,8 +8,15 @@ class ImageRef
 
   friend ImageRef operator+(const ImageRef &, const ImageRef &);
   friend ImageRef operator-(const ImageRef &, const ImageRef &);
+
   friend bool operator==(const ImageRef &, const ImageRef &);
   friend bool operator!=(const ImageRef &, const ImageRef &);
+
+  friend ImageRef operator+(const ImageRef &, const int & ) ;
+  friend ImageRef operator-(const ImageRef &, const int & ) ;
+  friend ImageRef operator*(const ImageRef &, const int & ) ;
+  friend ImageRef operator/(const ImageRef &, const int & ) ;
+
 public:
 
   unsigned int x;
@@ -21,6 +28,12 @@ public:
   ImageRef &operator=(const ImageRef &);
   ImageRef &operator+=(const ImageRef& ) ;
   ImageRef &operator-=(const ImageRef& ) ;
+  ImageRef &operator+=(const int& ) ;
+  ImageRef &operator-=(const int& ) ;
+  ImageRef &operator*=(const int& ) ;
+  ImageRef &operator/=(const int& ) ;
+
+  int mag_squared() ;
 
   int area() ;
 
