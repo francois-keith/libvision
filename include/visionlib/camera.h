@@ -18,6 +18,7 @@ class GenericCamera {
 
 		GenericCamera( uint64_t gid ) ;
 		virtual ~GenericCamera();
+		
 		uint64_t get_gid() ;
 	
 		ImageRef get_size() ;					// returns frame size
@@ -27,6 +28,9 @@ class GenericCamera {
 		bool is_active() { return active ; }
 		void set_active() { active = true ; }
 		void set_inactive() { active = false ; }
+
+		void set_name( string nm ) { name = nm ; }
+		string get_name() { return name ; }
 
 		virtual bool start_cam() = 0 ;				// Initialisation / starts frame grabbing
 		virtual void grab_frame ( Image<T> * ) = 0 ;		// Fills the given image
@@ -38,10 +42,10 @@ class GenericCamera {
 
 	private :
 
-		uint64_t gid ;
-		ImageRef size ;
-
-		bool active ;
+		uint64_t 	gid ;
+		string 		name ;
+		ImageRef 	size ;
+		bool 		active ;
 
 } ;
 
