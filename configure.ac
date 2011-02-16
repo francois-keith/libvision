@@ -20,6 +20,7 @@ AC_PROG_CXX
 
 # Checks for library functions.
 
+
 # Output 
 
 AC_CONFIG_HEADERS([config.h])

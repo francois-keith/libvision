@@ -6,4 +6,5 @@ nobase_include_HEADERS =	visionlib.h\
 				visionlib/imagebuffer.h \
 				visionlib/visionprocess.h \
 				visionlib/corners/fast.h \
-				visionlib/corners/ShiTomasi.h
+				visionlib/corners/ShiTomasi.h \
+				visionlib/pinholecam.h

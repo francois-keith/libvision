@@ -12,4 +12,5 @@ libvisionlib_la_SOURCES = imagebuffer.cpp \
 			  fast/nonmax.cpp \
 			  image_fast.cpp \
 			  ShiTomasi.cpp \
-			  imageref.cpp 
+			  imageref.cpp \
+			  pinholecam.cpp
