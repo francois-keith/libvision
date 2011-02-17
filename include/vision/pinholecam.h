@@ -1,11 +1,13 @@
 #ifndef PINHOLE_CAM
 #define PINHOLE_CAM
 
+#include <iostream>
+
 #include <Eigen/Dense>
+
 #include <vision/imageref.h>
 
-using namespace	Eigen ;
-
+using namespace Eigen ;
 
 class PinholeCam {
 
@@ -14,10 +16,7 @@ class PinholeCam {
 		PinholeCam() ;
 		PinholeCam( double cx, double cy, double fx, double fy, double s ) ;	
 
-		Vector2d Project ( Vector3d ) ;	
-		ImageRef Project ( Vector3d ) ;
-
-		Vector3d UnProject ( ImageRef ) ;
+		Vector2d Project ( Vector3d ) ;
 		Vector3d UnProject ( Vector2d ) ;
 
 		double get_s() ;
@@ -33,13 +32,13 @@ class PinholeCam {
 
 		PinholeCam& operator= (const PinholeCam &other) ;
 		
-		friend ostream &operator >> (ostream &os_o, PinholeCam &ref);
-		friend istream &operator << (istream &is_o, PinholeCam &ref);
+		friend std::ostream &operator >> ( std::ostream &os_o, PinholeCam &ref );
+		friend std::istream &operator << ( std::istream &is_o, PinholeCam &ref );
 
 	protected:
 
 		Matrix<double, 3, 3>		K ;		
 		Matrix<double, 1, Dynamic >	D ;
-}
+};
 
 #endif
