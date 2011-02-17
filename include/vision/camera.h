@@ -3,7 +3,6 @@
 
 #include <string>
 #include <vector>
-
 #include <stdint.h>
 
 #include <vision/image.h>
@@ -11,8 +10,7 @@
 using namespace std ;
 
 
-template< typename T >
-class GenericCamera {
+template< typename T > class GenericCamera {
 
 	public :
 
