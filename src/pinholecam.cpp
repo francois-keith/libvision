@@ -1,4 +1,4 @@
-#include <visionlib/pinholecam.h>
+#include <vision/pinholecam.h>
 
 /*
 class PinholeCam {

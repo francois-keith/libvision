@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include <visionlib/image.h>
+#include <vision/image.h>
 
 using namespace std ;
 

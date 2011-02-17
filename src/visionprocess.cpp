@@ -1,5 +1,5 @@
-#include <visionlib/imagebuffer.h>
-#include <visionlib/visionprocess.h>
+#include <vision/imagebuffer.h>
+#include <vision/visionprocess.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>

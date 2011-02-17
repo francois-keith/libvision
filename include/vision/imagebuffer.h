@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <pthread.h>
-#include "image.h"
+#include <vision/image.h>
 
 using namespace std ;
 

@@ -1,7 +1,9 @@
 #ifndef SHITOMASI_H
 #define SHITOMASI_H
 
-#include <visionlib.h>
+#include <vision/ShiTomasi.h>
+#include <vision/image.h>
+
 
 // Honteusement repompé de ptam
 

@@ -6,9 +6,9 @@
 #include <fstream>
 #include <iostream>
 
-#include <visionlib/image.h>
-#include <visionlib/imagebuffer.h>
-#include <visionlib/camera.h>
+#include <vision/image.h>
+#include <vision/imagebuffer.h>
+#include <vision/camera.h>
 
 using namespace std ;
 

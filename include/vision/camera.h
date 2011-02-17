@@ -6,7 +6,7 @@
 
 #include <stdint.h>
 
-#include <visionlib/image.h>
+#include <vision/image.h>
 
 using namespace std ;
 
@@ -50,7 +50,7 @@ class GenericCamera {
 } ;
 
 
-#include <visionlib/camera.hpp>
+#include <vision/camera.hpp>
 
 
 #endif

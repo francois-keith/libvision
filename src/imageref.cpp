@@ -1,4 +1,4 @@
-#include <visionlib/imageref.h>
+#include <vision/imageref.h>
 
 
 ImageRef &ImageRef::operator=(const ImageRef& source) {

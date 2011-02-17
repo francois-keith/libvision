@@ -1,9 +1,8 @@
 #ifndef PINHOLE_CAM
 #define PINHOLE_CAM
 
-#include <visionlib/imageref.h>
 #include <Eigen/Dense>
-
+#include <vision/imageref.h>
 
 using namespace	Eigen ;
 

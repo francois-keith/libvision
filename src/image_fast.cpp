@@ -1,5 +1,5 @@
+#include "vision/corner_fast.h"
 #include "fast/fast.h"
-#include <visionlib/corners/fast.h>
 
 
 void fast9_detect ( Image<unsigned char>* img , double b, vector<ImageRef> *ret ) {

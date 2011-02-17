@@ -1,8 +1,8 @@
 #include <cstring>
 #include <iostream>
 
-#include <visionlib/image.h>
-#include <visionlib/imagebuffer.h>
+#include <vision/image.h>
+#include <vision/imagebuffer.h>
 
 using namespace std ;
 
