@@ -9,4 +9,7 @@ Makefile.in
 *.la
 *.lo
 
+build/*
+src/Config.h
+CMakeFile
 

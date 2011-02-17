@@ -8,8 +8,6 @@
 #
 # ----------------------------------------------------------------------------
 
-set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /lib /usr/lib /usr/local/lib )
-set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} /usr/include /usr/local/include )
 
 cmake_minimum_required (VERSION 2.6)
 
@@ -17,7 +15,15 @@ project (Vision)
 set (Vision_VERSION_MAJOR 0)
 set (Vision_VERSION_MINOR 1)
 
+set( CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /lib /usr/lib /usr/local/lib )
+set( CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} /usr/include /usr/local/include )
+set( CMAKE_MODULE_PATH  ${CMAKE_MODULE_PATH}  "${PROJECT_SOURCE_DIR}/cmake" ) 
 
+# guard against in-source builds
+
+if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
+  message(FATAL_ERROR "In-source builds not allowed. Please make a new directory (called a build directory) and run CMake from there. You may need to remove CMakeCache.txt. ")
+endif()
 
 
 # Configure a header file to pass some of the CMake settings
@@ -31,9 +37,8 @@ configure_file (
 
 ## Search for Lib/Headers
 
-set ( CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ) 
 
-find_package(Eigen3 3.1.2)
+find_package( Eigen3 2.9)
 
 
 ## Set include directories 
@@ -41,7 +46,7 @@ find_package(Eigen3 3.1.2)
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include"
 		    "${CMAKE_CURRENT_SOURCE_DIR}/src"
 	            "${CMAKE_CURRENT_BINARY_DIR}"
-		    "${EIGEN_PATH}" )
+		    "${EIGEN3_INCLUDE_DIR}" )
 	
 file(GLOB lib_srcs "src/*.cpp")
 file(GLOB lib_int_hdrs "src/*.h*")
