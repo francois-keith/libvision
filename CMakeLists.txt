@@ -1,4 +1,4 @@
-### CMake file for Vision library
+### CMake file for vision library
 ###
 ###    From the off-tree build directory, invoke:
 ###	 cmake <PATH_TO_lib_vision>
@@ -12,9 +12,9 @@
 
 cmake_minimum_required (VERSION 2.6)
 
-project (Vision)
-set (Vision_VERSION_MAJOR 0)
-set (Vision_VERSION_MINOR 1)
+project (vision)
+set (vision_VERSION_MAJOR 0)
+set (vision_VERSION_MINOR 1)
 
 set( CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /lib /usr/lib /usr/local/lib )
 set( CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} /usr/include /usr/local/include )
@@ -58,7 +58,7 @@ file( GLOB lib_hdrs "include/vision/*.h*")
 
 ### Targets
 
-add_library( "vision" ${lib_srcs} ${lib_hdrs} ${lib_int_hdrs})
+add_library( "vision" SHARED ${lib_srcs} ${lib_hdrs} ${lib_int_hdrs})
 
 
 install( TARGETS "vision"
