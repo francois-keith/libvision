@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vision/imageref.h>
 
+namespace vision {
 
 template < typename Pix > class Image
 {
@@ -115,6 +116,6 @@ Image<Pix>* Image<Pix>::clone() {
 	return img ;
 }
 
-
+}
 
 #endif

@@ -1,5 +1,6 @@
 #include <vision/imageref.h>
 
+using namespace vision ;
 
 ImageRef &ImageRef::operator=(const ImageRef& source) {
 	x = source.x ;

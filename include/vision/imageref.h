@@ -3,6 +3,8 @@
 
 #include <stdlib.h>
 
+namespace vision {
+
 class ImageRef
 {
 
@@ -39,5 +41,6 @@ public:
 
 };
 
+}
 
 #endif

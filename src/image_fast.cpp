@@ -2,6 +2,8 @@
 #include "fast/fast.h"
 
 
+using namespace vision ;
+
 void fast9_detect ( Image<unsigned char>* img , double b, vector<ImageRef> *ret ) {
 
 	xy* result ;

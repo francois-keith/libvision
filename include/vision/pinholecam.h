@@ -9,6 +9,8 @@
 
 using namespace Eigen ;
 
+namespace vision {
+
 class PinholeCam {
 
 	public:
@@ -40,5 +42,7 @@ class PinholeCam {
 		Matrix<double, 3, 3>		K ;		
 		Matrix<double, 1, Dynamic >	D ;
 };
+
+}
 
 #endif

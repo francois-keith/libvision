@@ -1,6 +1,8 @@
 #include <math.h>
 #include <iostream>
-#include <vision/ShiTomasi.h>
+#include <vision/shitomasi.h>
+
+using namespace vision ;
 
 double ShiTomasi_score ( Image<unsigned char> & image, int nHalfBoxSize, ImageRef irCenter)
 {
