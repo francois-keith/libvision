@@ -1,4 +1,4 @@
-# - Config file for the FooBar package
+# - Config file for the vision lib
 # It defines the following variables
 #
 #  VISION_INCLUDE_DIRS - include directories for FooBar
@@ -11,4 +11,4 @@
 set(VISION_INCLUDE_DIRS "@INSTALL_HEADERS_PATH@")
 set(VISION_LIBRARY_DIRS "@INSTALL_LIB_PATH@")
   
-set(VISION_LIBRARIES foo)
+set(VISION_LIBRARIES vision)
