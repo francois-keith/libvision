@@ -60,13 +60,26 @@ file( GLOB lib_hdrs "include/vision/*.h*")
 
 add_library( "vision" SHARED ${lib_srcs} ${lib_hdrs} ${lib_int_hdrs})
 
+### install
+
+set ( INSTALL_BIN_PATH bin )
+set ( INSTALL_LIB_PATH lib )
+set ( INSTALL_AR_PATH lib )
+set ( INSTALL_HEADERS_PATH include/vision )
 
 install( TARGETS "vision"
-	    RUNTIME DESTINATION bin COMPONENT main
-	    LIBRARY DESTINATION lib COMPONENT main
-	    ARCHIVE DESTINATION lib COMPONENT main )
+	    RUNTIME DESTINATION ${INSTALL_BIN_PATH}  COMPONENT main
+	    LIBRARY DESTINATION ${INSTALL_LIB_PATH}  COMPONENT main
+	    ARCHIVE DESTINATION ${INSTALL_AR_PATH}   COMPONENT main )
 
 install( FILES ${lib_hdrs}
-	    DESTINATION include/vision/${name}
+	    DESTINATION ${INSTALL_HEADERS_PATH}/${name}
 	    COMPONENT main )
+### test
+
+configure_file(visionConfig.cmake.in "${PROJECT_BINARY_DIR}/visionConfig.cmake" @ONLY)
+
+install ( FILES "${PROJECT_BINARY_DIR}/visionConfig.cmake" 
+	  DESTINATION "${INSTALL_LIB_PATH}/vision" COMPONENT dev )  
+        
 

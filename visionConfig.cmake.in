@@ -1,0 +1,20 @@
+# - Config file for the FooBar package
+# It defines the following variables
+#
+#  VISION_INCLUDE_DIRS - include directories for FooBar
+#  VISION_LIBRARY_DIRS - library directories for FooBar (normally not used!)
+#  VISION_LIBRARIES    - libraries to link against
+#  VISION_EXECUTABLE   - the bar executable
+ 
+# Tell the user project where to find our headers and libraries
+
+set(VISION_INCLUDE_DIRS "@INSTALL_HEADERS_PATH@")
+set(VISION_LIBRARY_DIRS "@INSTALL_LIB_PATH@")
+  
+# Our library dependencies (contains definitions for IMPORTED targets)
+
+#include("@VISION_CMAKE_DIR@/VisionLibraryDepends.cmake")
+   
+# These are IMPORTED targets created by FooBarLibraryDepends.cmake
+
+set(VISION_LIBRARIES foo)
