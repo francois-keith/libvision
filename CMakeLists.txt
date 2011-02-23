@@ -20,6 +20,20 @@ set( CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /lib /usr/lib /usr/local/lib )
 set( CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} /usr/include /usr/local/include )
 set( CMAKE_MODULE_PATH  ${CMAKE_MODULE_PATH}  "${PROJECT_SOURCE_DIR}/cmake" ) 
 
+set ( INSTALL_BIN_PATH bin )
+set ( INSTALL_LIB_PATH lib )
+set ( INSTALL_AR_PATH  lib )
+set ( INSTALL_HEADERS_PATH include )
+
+# Make relative paths absolute (needed later on)
+
+foreach(p LIB BIN HEADERS AR)
+	set(var INSTALL_${p}_PATH)
+	if(NOT IS_ABSOLUTE "${${var}}")
+		set(${var} "${CMAKE_INSTALL_PREFIX}/${${var}}")
+	endif()
+endforeach()
+
 ### guard against in-source builds
 
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
@@ -62,18 +76,13 @@ add_library( "vision" SHARED ${lib_srcs} ${lib_hdrs} ${lib_int_hdrs})
 
 ### install
 
-set ( INSTALL_BIN_PATH bin )
-set ( INSTALL_LIB_PATH lib )
-set ( INSTALL_AR_PATH lib )
-set ( INSTALL_HEADERS_PATH include/vision )
-
 install( TARGETS "vision"
 	    RUNTIME DESTINATION ${INSTALL_BIN_PATH}  COMPONENT main
 	    LIBRARY DESTINATION ${INSTALL_LIB_PATH}  COMPONENT main
 	    ARCHIVE DESTINATION ${INSTALL_AR_PATH}   COMPONENT main )
 
 install( FILES ${lib_hdrs}
-	    DESTINATION ${INSTALL_HEADERS_PATH}/${name}
+	    DESTINATION ${INSTALL_HEADERS_PATH}/vision/${name}
 	    COMPONENT main )
 ### test
 

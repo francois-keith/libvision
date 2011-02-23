@@ -11,10 +11,4 @@
 set(VISION_INCLUDE_DIRS "@INSTALL_HEADERS_PATH@")
 set(VISION_LIBRARY_DIRS "@INSTALL_LIB_PATH@")
   
-# Our library dependencies (contains definitions for IMPORTED targets)
-
-#include("@VISION_CMAKE_DIR@/VisionLibraryDepends.cmake")
-   
-# These are IMPORTED targets created by FooBarLibraryDepends.cmake
-
 set(VISION_LIBRARIES foo)
