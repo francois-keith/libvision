@@ -1,6 +1,6 @@
 #include <vision/imageref.h>
 
-using namespace vision ;
+namespace vision {
 
 ImageRef &ImageRef::operator=(const ImageRef& source) {
 	x = source.x ;
@@ -97,4 +97,6 @@ int ImageRef::area() {
 
 int ImageRef::mag_squared() {
 	return x*x+y*y ;
+}
+
 }
