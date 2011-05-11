@@ -45,20 +45,20 @@ public:
 
 public:
 
-  Image ( ImageRef size ) ;
-  Image ( const Image<Pix> &img ) ;
-  Image ( unsigned int width, unsigned int height) ;
+  Image (ImageRef size) ;
+  Image (const Image<Pix> &img) ;
+  Image (unsigned int width, unsigned int height) ;
   
   ~Image ();
 
 
-  Pix& operator[] ( ImageRef coord ) ;
-  Pix* operator[] ( unsigned int line ) ;
+  Pix* operator[](unsigned int line) ;
+  Pix& operator()(ImageRef coord) ;
+  Pix& operator()(unsigned int x, unsigned int y ) ;
 
   Image<Pix>* clone() ;
 
 };
-
 
 template<typename Pix>
 Image<Pix>::Image( ImageRef ir ) 
@@ -110,14 +110,20 @@ Image<Pix>::~Image ()
 }
 
 template <typename Pix>
-Pix& Image<Pix>::operator[] ( ImageRef coord )
+Pix* Image<Pix>::operator[] ( unsigned int line ) {
+	return &(raw_data[line*width] ) ;
+}
+
+template <typename Pix>
+Pix& Image<Pix>::operator()(ImageRef coord)
 {
 	return raw_data[coord.x+coord.y*width] ;
 }
 
 template <typename Pix>
-Pix* Image<Pix>::operator[] ( unsigned int line ) {
-	return &(raw_data[line*width] ) ;
+Pix& Image<Pix>::operator()(unsigned int x, unsigned int y)
+{
+	return raw_data[x+y*width] ;
 }
 
 template<typename Pix >
@@ -127,7 +133,6 @@ Image<Pix>* Image<Pix>::clone() {
 	std::memcpy ( img->raw_data, raw_data, data_size ) ;
 	return img ;
 }
-
 
 }
 

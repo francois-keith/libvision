@@ -19,8 +19,8 @@ double ShiTomasi_score ( Image<unsigned char> & image, int nHalfBoxSize, ImageRe
     for(ir.x = irStart.x; ir.x<=irEnd.x; ir.x++)
       {
 
-	double dx = image[ir + ImageRef(1,0)] - image[ir - ImageRef(1,0)];
-	double dy = image[ir + ImageRef(0,1)] - image[ir - ImageRef(0,1)];
+	double dx = image(ir + ImageRef(1,0)) - image(ir - ImageRef(1,0));
+	double dy = image(ir + ImageRef(0,1)) - image(ir - ImageRef(0,1));
 	dXX += dx*dx;
 	dYY += dy*dy;
 	dXY += dx*dy;
