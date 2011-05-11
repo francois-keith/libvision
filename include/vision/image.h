@@ -1,5 +1,5 @@
-#ifndef VISIONLIB_IMAGE_H
-#define VISIONLIB_IMAGE_H
+#ifndef VL_IMAGE_H
+#define VL_IMAGE_H
 
 #include <cstring>
 #include <iostream>

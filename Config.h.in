@@ -1,4 +1,4 @@
 
-#define Vision_VERSION_MAJOR @Vision_VERSION_MAJOR@
-#define Vision_VERSION_MINOR @Vision_VERSION_MINOR@
+#define Vision_VERSION_MAJOR @vision_VERSION_MAJOR@
+#define Vision_VERSION_MINOR @vision_VERSION_MINOR@
 

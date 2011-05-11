@@ -1,5 +1,5 @@
-#ifndef VISIONLIB_IMAGEREF_H
-#define VISIONLIB_IMAGEREF_H
+#ifndef VL_IMAGEREF_H
+#define VL_IMAGEREF_H
 
 #include <stdlib.h>
 

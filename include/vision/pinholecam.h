@@ -1,5 +1,5 @@
-#ifndef PINHOLE_CAM
-#define PINHOLE_CAM
+#ifndef VL_PINHOLECAM_H
+#define VL_PINHOLECAM_H
 
 #include <iostream>
 

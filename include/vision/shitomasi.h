@@ -1,5 +1,5 @@
-#ifndef SHITOMASI_H
-#define SHITOMASI_H
+#ifndef VL_SHITOMASI_H
+#define VL_SHITOMASI_H
 
 #include <vision/image.h>
 

@@ -1,5 +1,5 @@
-#ifndef VL_FAST_H
-#define VL_FAST_H
+#ifndef VL_CORNERFAST_H
+#define VL_CORNERFAST_H
 
 #include <vector>
 
