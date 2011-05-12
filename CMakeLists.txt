@@ -36,13 +36,17 @@ foreach(p LIB BIN HEADERS AR)
 endforeach()
 
 
+
 ### Search for Lib/Headers
 
 find_package( Eigen3 2.9)
 find_package( ImageMagick COMPONENTS Magick++ ) 
 
+
+
 ### Configure a header file to pass some of the CMake settings
 ### to the source code
+
 
 configure_file (
 	"${PROJECT_SOURCE_DIR}/vision.h.in"
@@ -55,8 +59,11 @@ configure_file (
 include_directories( "${CMAKE_CURRENT_SOURCE_DIR}/include"
 		     "${CMAKE_CURRENT_SOURCE_DIR}/src"
 	             "${CMAKE_CURRENT_BINARY_DIR}"
-		     "${EIGEN3_INCLUDE_DIR}" 
-		     "${ImageMagick_Magick++_INCLUDE_DIR}" )
+		     "${EIGEN3_INCLUDE_DIR}" )
+
+if ( ImageMagick_Magick++_FOUND )		 
+	include_directories ( "${ImageMagick_Magick++_INCLUDE_DIR}" )
+endif ( ImageMagick_Magick++_FOUND )		 
 
 
 ### File Lists
@@ -76,7 +83,10 @@ file( GLOB hdr_color   "include/vision/color/*.h*")
 
 add_library( "vision" SHARED ${src} ${hdr} )
 
-target_link_libraries ( "vision" "${ImageMagick_Magick++_LIBRARIES}" ) 
+
+if ( ImageMagick_Magick++_FOUND )		 
+	target_link_libraries ( "vision" "${ImageMagick_Magick++_LIBRARIES}" ) 
+endif ( ImageMagick_Magick++_FOUND )		 
 
 ### INSTAll
 

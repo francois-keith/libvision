@@ -1,12 +1,11 @@
-
-#define Vision_VERSION_MAJOR @vision_VERSION_MAJOR@
-#define Vision_VERSION_MINOR @vision_VERSION_MINOR@
-
-#define Vision_WITH_IMAGEMAGICK @ImageMagick_Magick++_FOUND
 #ifndef VL_VISION_H
 #define VL_VISION_H
 
-#include <vision/camera/pinhole.h>
+
+#define Vision_VERSION_MAJOR @vision_VERSION_MAJOR@
+#define Vision_VERSION_MINOR @vision_VERSION_MINOR@
+#define Vision_IMAGEMAGICK @ImageMagick_Magick++_FOUND@
+
 
 #include <vision/image/image.h>
 #include <vision/image/scale.h>
@@ -15,5 +14,8 @@
 #include <corners/fast.h>
 #include <corners/shitomasi.h>
 
+#include <vision/io/imageio.h>
+
+#include <vision/camera/pinhole.h>
 
 #endif
