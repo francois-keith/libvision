@@ -4,7 +4,7 @@
 #include <cstring>
 #include <iostream>
 
-#include <vision/imageref.h>
+#include <vision/image/imageref.h>
 
 namespace vision {
 

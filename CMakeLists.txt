@@ -25,6 +25,7 @@ set ( INSTALL_LIB_PATH lib )
 set ( INSTALL_AR_PATH  lib )
 set ( INSTALL_HEADERS_PATH include )
 
+
 # Make relative paths absolute (needed later on)
 
 foreach(p LIB BIN HEADERS AR)
@@ -34,57 +35,77 @@ foreach(p LIB BIN HEADERS AR)
 	endif()
 endforeach()
 
-### guard against in-source builds
 
-#if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
-#  message(FATAL_ERROR "In-source builds not allowed. Please make a new directory (called a build directory) and run CMake from there. You may need to remove CMakeCache.txt. ")
-#endif()
+### Search for Lib/Headers
 
+find_package( Eigen3 2.9)
+find_package( ImageMagick COMPONENTS Magick++ ) 
 
 ### Configure a header file to pass some of the CMake settings
 ### to the source code
 
 configure_file (
-	"${PROJECT_SOURCE_DIR}/Config.h.in"
-	"${PROJECT_SOURCE_DIR}/src/Config.h"
+	"${PROJECT_SOURCE_DIR}/vision.h.in"
+	"${PROJECT_SOURCE_DIR}/include/vision/vision.h"
 )
-
-
-### Search for Lib/Headers
-
-find_package( Eigen3 2.9)
 
 
 ### Set include directories 
         
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include"
-		    "${CMAKE_CURRENT_SOURCE_DIR}/src"
-	            "${CMAKE_CURRENT_BINARY_DIR}"
-		    "${EIGEN3_INCLUDE_DIR}" )
+include_directories( "${CMAKE_CURRENT_SOURCE_DIR}/include"
+		     "${CMAKE_CURRENT_SOURCE_DIR}/src"
+	             "${CMAKE_CURRENT_BINARY_DIR}"
+		     "${EIGEN3_INCLUDE_DIR}" 
+		     "${ImageMagick_Magick++_INCLUDE_DIR}" )
 
 
 ### File Lists
 
-file( GLOB lib_srcs "src/*.cpp" "src/fast/*.cpp" )
-file( GLOB lib_int_hdrs "src/*.h*")
-file( GLOB lib_hdrs "include/vision/*.h*")
+file( GLOB src "src/*.cpp" "src/fast/*.cpp" )
+file( GLOB hdr "src/*.h*")
+
+file( GLOB hdr_global  "include/vision/*.h*")
+file( GLOB hdr_image   "include/vision/image/*.h*")
+file( GLOB hdr_camera  "include/vision/camera/*.h*") 
+file( GLOB hdr_corners "include/vision/corners/*.h*") 
+file( GLOB hdr_io      "include/vision/io/*.h*") 
+file( GLOB hdr_color   "include/vision/color/*.h*") 
 
 
 ### Targets
 
-add_library( "vision" SHARED ${lib_srcs} ${lib_hdrs} ${lib_int_hdrs})
+add_library( "vision" SHARED ${src} ${hdr} )
 
-### install
+target_link_libraries ( "vision" "${ImageMagick_Magick++_LIBRARIES}" ) 
+
+### INSTAll
 
 install( TARGETS "vision"
 	    RUNTIME DESTINATION ${INSTALL_BIN_PATH}  COMPONENT main
 	    LIBRARY DESTINATION ${INSTALL_LIB_PATH}  COMPONENT main
 	    ARCHIVE DESTINATION ${INSTALL_AR_PATH}   COMPONENT main )
 
-install( FILES ${lib_hdrs}
+install( FILES ${hdr_global}
 	    DESTINATION ${INSTALL_HEADERS_PATH}/vision/${name}
 	    COMPONENT main )
-### test
+install( FILES ${hdr_image}
+	    DESTINATION ${INSTALL_HEADERS_PATH}/vision/image/${name}
+	    COMPONENT main )
+install( FILES ${hdr_camera}
+	    DESTINATION ${INSTALL_HEADERS_PATH}/vision/camera/${name}
+	    COMPONENT main )
+install( FILES ${hdr_corners}
+	    DESTINATION ${INSTALL_HEADERS_PATH}/vision/corners/${name}
+	    COMPONENT main )
+install( FILES ${hdr_io}
+	    DESTINATION ${INSTALL_HEADERS_PATH}/vision/io/${name}
+	    COMPONENT main )
+install( FILES ${hdr_color}
+	    DESTINATION ${INSTALL_HEADERS_PATH}/vision/color/${name}
+	    COMPONENT main )
+
+
+### Configure file
 
 configure_file(visionConfig.cmake.in "${PROJECT_BINARY_DIR}/visionConfig.cmake" @ONLY)
 

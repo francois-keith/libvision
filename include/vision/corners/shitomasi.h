@@ -1,7 +1,7 @@
 #ifndef VL_SHITOMASI_H
 #define VL_SHITOMASI_H
 
-#include <vision/image.h>
+#include <vision/image/image.h>
 
 namespace vision  {
 // Honteusement repompé de ptam

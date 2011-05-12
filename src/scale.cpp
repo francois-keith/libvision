@@ -1,4 +1,4 @@
-#include <vision/scale.h>
+#include <vision/image/scale.h>
 
 namespace vision {
 

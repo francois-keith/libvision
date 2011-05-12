@@ -1,6 +1,7 @@
 #include <math.h>
 #include <iostream>
-#include <vision/shitomasi.h>
+
+#include <vision/corners/shitomasi.h>
 
 using namespace vision ;
 

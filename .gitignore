@@ -10,6 +10,6 @@ Makefile.in
 *.lo
 
 build/*
-src/Config.h
+include/vision/vision.h
 CMakeFile
 

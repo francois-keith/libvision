@@ -1,7 +1,7 @@
 #ifndef VL_SCALE_H
 #define VL_SCALE_H
 
-#include <vision/image.h>
+#include <vision/image/image.h>
 
 namespace vision {
 

@@ -1,4 +1,5 @@
-#include "vision/corner_fast.h"
+#include <vision/corners/fast.h>
+
 #include "fast/fast.h"
 
 
