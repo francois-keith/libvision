@@ -33,7 +33,7 @@ Pix rgb2pixel ( double red, double green, double blue )
 {
 	return (Pix) ( (int) ( red * 255 )) << 16 +
 	             ( (int) ( green * 255 )) << 8  +
-		     ( (int) ( blue * 255 ) )
+		     ( (int) ( blue * 255 ) ) ;
 }
 
 // -----------------------------------------------------------------
