@@ -19,7 +19,6 @@ Pix mono2pixel ( double value )
 	return (Pix) value ;
 }
 
-
 template< typename Pix, int ColorCoding >
 void pixel2rgb ( Pix value, double &red, double &green, double &blue ) 
 {
@@ -29,7 +28,13 @@ void pixel2rgb ( Pix value, double &red, double &green, double &blue )
 
 }
 
-
+template< typename Pix, int ColorCoding >
+Pix rgb2pixel ( double red, double green, double blue ) 
+{
+	return (Pix) ( (int) ( red * 255 )) << 16 +
+	             ( (int) ( green * 255 )) << 8  +
+		     ( (int) ( blue * 255 ) )
+}
 
 // -----------------------------------------------------------------
 
