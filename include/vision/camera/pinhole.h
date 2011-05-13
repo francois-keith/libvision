@@ -1,5 +1,5 @@
-#ifndef VL_PINHOLECAM_H
-#define VL_PINHOLECAM_H
+#ifndef VL_PINHOLE_H
+#define VL_PINHOLE_H
 
 #include <iostream>
 #include <Eigen/Dense>

@@ -11,8 +11,8 @@
 #include <vision/image/scale.h>
 #include <vision/image/imageref.h>
 
-#include <corners/fast.h>
-#include <corners/shitomasi.h>
+#include <vision/corners/fast.h>
+#include <vision/corners/shitomasi.h>
 
 #include <vision/io/imageio.h>
 
