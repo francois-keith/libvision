@@ -3,11 +3,12 @@
 
 #include <vision/vision.h>
 #include <vision/image/image.h>
-#include <vision/image/color.h>
+#include <vision/image/pixelcoding.h>
 
 #if (Vision_IMAGEMAGICK == True ) 
 
 #include <Magick++.h>
+
 
 namespace vision {
 	
@@ -82,8 +83,6 @@ namespace vision {
 }
 
 #endif
-
-
 
 
 
