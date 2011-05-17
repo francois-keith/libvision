@@ -1,2 +1,4 @@
 Add licence file and headers to .cpp and .h files
+add serialization opertor to image
+
 

@@ -1,0 +1,21 @@
+#ifndef VL_VISION_H
+#define VL_VISION_H
+
+
+#define Vision_VERSION_MAJOR @vision_VERSION_MAJOR@
+#define Vision_VERSION_MINOR @vision_VERSION_MINOR@
+
+#define Vision_IMAGEMAGICK @ImageMagick_Magick++_FOUND@
+
+#define Vision_HEADERS_PATH   		"@INSTALL_HEADERS_PATH@"
+#define Vision_LIBS_PATH       		"@INSTALL_LIB_PATH@"
+#define Vision_LIBS			"vision"
+
+#define Vision_EIGEN3_HEADERS_PATH	"@EIGEN3_INCLUDE_DIR@"	
+
+#define Vision_IMAGEMAGICK_HEADERS_PATH 	"@ImageMagick_INCLUDE_DIRS@"
+#define Vision_IMAGEMAGICK_LIBS			"@ImageMagick_LIBRARIES@"
+
+
+
+#endif

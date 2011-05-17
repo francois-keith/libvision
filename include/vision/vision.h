@@ -1,11 +1,7 @@
 #ifndef VL_VISION_H
 #define VL_VISION_H
 
-
-#define Vision_VERSION_MAJOR @vision_VERSION_MAJOR@
-#define Vision_VERSION_MINOR @vision_VERSION_MINOR@
-#define Vision_IMAGEMAGICK @ImageMagick_Magick++_FOUND@
-
+#include <vision/config.h>
 
 #include <vision/image/image.h>
 #include <vision/image/scale.h>

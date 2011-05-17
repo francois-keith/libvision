@@ -49,8 +49,8 @@ find_package( ImageMagick COMPONENTS Magick++ )
 
 
 configure_file (
-	"${PROJECT_SOURCE_DIR}/vision.h.in"
-	"${PROJECT_SOURCE_DIR}/include/vision/vision.h"
+	"${PROJECT_SOURCE_DIR}/config.h.in"
+	"${PROJECT_SOURCE_DIR}/include/vision/config.h"
 )
 
 
@@ -78,10 +78,14 @@ file( GLOB hdr_corners "include/vision/corners/*.h*")
 file( GLOB hdr_io      "include/vision/io/*.h*") 
 file( GLOB hdr_color   "include/vision/color/*.h*") 
 
+file( GLOB visionconfig "vision-config/*.cpp" )
+
 
 ### Targets
 
 add_library( "vision" SHARED ${src} ${hdr} )
+
+add_executable( "vision-config" ${visionconfig}  ${hdr} )
 
 
 if ( ImageMagick_Magick++_FOUND )		 
@@ -94,6 +98,12 @@ install( TARGETS "vision"
 	    RUNTIME DESTINATION ${INSTALL_BIN_PATH}  COMPONENT main
 	    LIBRARY DESTINATION ${INSTALL_LIB_PATH}  COMPONENT main
 	    ARCHIVE DESTINATION ${INSTALL_AR_PATH}   COMPONENT main )
+
+install( TARGETS "vision-config"
+	    RUNTIME DESTINATION ${INSTALL_BIN_PATH}  COMPONENT main
+	    LIBRARY DESTINATION ${INSTALL_LIB_PATH}  COMPONENT main
+	    ARCHIVE DESTINATION ${INSTALL_AR_PATH}   COMPONENT main )
+
 
 install( FILES ${hdr_global}
 	    DESTINATION ${INSTALL_HEADERS_PATH}/vision/${name}
