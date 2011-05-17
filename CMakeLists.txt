@@ -124,6 +124,10 @@ install( FILES ${hdr_color}
 	    DESTINATION ${INSTALL_HEADERS_PATH}/vision/color/${name}
 	    COMPONENT main )
 
+### Copy examples to share/lib_vision/examples
+
+INSTALL ( DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/examples" 
+          DESTINATION share/doc/${PROJECT_NAME} )
 
 ### Configure file
 
