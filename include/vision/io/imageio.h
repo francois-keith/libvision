@@ -1,9 +1,9 @@
 #ifndef VL_IMAGEIO_H
 #define VL_IMAGEIO_H
 
-#include <vision/vision.h>
+#include <vision/config.h>
 #include <vision/image/image.h>
-#include <vision/image/pixelcoding.h>
+#include <vision/io/pixelcoding.h>
 
 #if (Vision_IMAGEMAGICK == True ) 
 
