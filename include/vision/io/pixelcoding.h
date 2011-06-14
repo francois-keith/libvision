@@ -1,10 +1,6 @@
 #ifndef VL_COLOR_H
 #define VL_COLOR_H
 
-
-#define MONO    -1
-#define RGB	-2
-
 namespace vision {
 
 template< typename Pix, int ColorCoding >

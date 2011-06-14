@@ -6,7 +6,7 @@
 namespace vision  {
 // Honteusement repompé de ptam
 
-double ShiTomasi_score ( Image<unsigned char> & image, int nHalfBoxSize, ImageRef irCenter) ;
+double ShiTomasi_score ( Image<unsigned char, MONO> & image, int nHalfBoxSize, ImageRef irCenter) ;
 
 }
 

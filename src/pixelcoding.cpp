@@ -1,3 +1,5 @@
+
+#include <vision/image/image.h>
 #include <vision/io/pixelcoding.h>
 
 namespace vision {

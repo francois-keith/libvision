@@ -5,7 +5,7 @@
 
 using namespace vision ;
 
-double ShiTomasi_score ( Image<unsigned char> & image, int nHalfBoxSize, ImageRef irCenter)
+double ShiTomasi_score ( Image<unsigned char, MONO> & image, int nHalfBoxSize, ImageRef irCenter)
 {
   double dXX = 0;
   double dYY = 0;

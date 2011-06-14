@@ -3,9 +3,9 @@
 namespace vision {
 
 template<>							
-Image<unsigned char>* scale( Image<unsigned char>* src, unsigned int scale_factor) {
-	Image<unsigned char>* img ;
-	img = new Image<unsigned char>(src->width/scale_factor,src->height/scale_factor) ;
+Image<unsigned char, MONO>* scale( Image<unsigned char,MONO>* src, unsigned int scale_factor) {
+	Image<unsigned char,MONO>* img ;
+	img = new Image<unsigned char,MONO>(src->width/scale_factor,src->height/scale_factor) ;
 	unsigned int nb = scale_factor * scale_factor ;
 	for (int i=0; i<img->width; i++ ) 
 	for (int j=0; j<img->height; j++ ) {

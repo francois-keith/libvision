@@ -5,9 +5,9 @@
 
 namespace vision {
 
-template< typename Pix >							
-Image<Pix>* scale( Image<Pix>* src, unsigned int scale_factor) {
-	Image<Pix>* img = new Image<Pix>(src->width/scale_factor,src->height/scale_factor) ;
+template< typename Pix, int ColorSpace >							
+Image<Pix,ColorSpace>* scale( Image<Pix,ColorSpace>* src, unsigned int scale_factor) {
+	Image<Pix,ColorSpace>* img = new Image<Pix,ColorSpace>(src->width/scale_factor,src->height/scale_factor) ;
 	unsigned int nb = scale_factor * scale_factor ;
 	for (int i=0; i<img->width; i++ ) 
 	for (int j=0; j<img->height; j++ ) {
@@ -25,7 +25,7 @@ Image<Pix>* scale( Image<Pix>* src, unsigned int scale_factor) {
 
 
 template<>							
-Image<unsigned char>* scale( Image<unsigned char>* src, unsigned int scale_factor) ;
+Image<unsigned char, MONO>* scale( Image<unsigned char,MONO>* src, unsigned int scale_factor) ;
 
 
 

@@ -10,7 +10,7 @@ int main ( int argc, char** argv ) {
 		return 0 ;
 	}
 	
-	Image<unsigned int> *img = load_color<unsigned int, RGB>( std::string(argv[1]) ) ;
+	Image<unsigned int,RGB> *img = load_color<unsigned int, RGB>( std::string(argv[1]) ) ;
 	save_color<unsigned int,RGB>(  std::string(argv[2]) , img ) ;
 	return 0 ;
 }

@@ -5,7 +5,7 @@
 
 namespace vision { 
 
-void fast9_detect ( Image<unsigned char>* img , double b, vector<ImageRef> *ret ) {
+void fast9_detect ( Image<unsigned char,MONO>* img , double b, vector<ImageRef> *ret ) {
 
 	xy* result ;
 	int nb ;

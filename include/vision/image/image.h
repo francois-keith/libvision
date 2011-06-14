@@ -8,6 +8,14 @@
 
 namespace vision {
 
+#define DEPTH		-1
+#define TEMPERATURE	-2
+#define DISPARITY	-3
+#define MONO    	-4
+#define RGB		-5
+#define RGBA		-6
+#define HSV		-7
+#define YUV		-8
 
 // *************************************************
 // ***
@@ -27,7 +35,7 @@ namespace vision {
 // segfault ! You've been warned :)
 
 
-template < typename Pix > class Image
+template < typename Pix, int ColorSpace > class Image
 {
 
 public:
@@ -46,22 +54,21 @@ public:
 public:
 
   Image (ImageRef size) ;
-  Image (const Image<Pix> &img) ;
+  Image (const Image<Pix,ColorSpace> &img) ;
   Image (unsigned int width, unsigned int height) ;
   
   ~Image ();
-
 
   Pix* operator[](unsigned int line) ;
   Pix& operator()(ImageRef coord) ;
   Pix& operator()(unsigned int x, unsigned int y ) ;
 
-  Image<Pix>* clone() ;
+  Image<Pix,ColorSpace>* clone() ;
 
 };
 
-template<typename Pix>
-Image<Pix>::Image( ImageRef ir ) 
+template<typename Pix, int ColorSpace>
+Image<Pix, ColorSpace>::Image( ImageRef ir ) 
 {
   width = ir.x;
   height = ir.y;
@@ -74,8 +81,8 @@ Image<Pix>::Image( ImageRef ir )
     throw "new[] error" ;
 }
 
-template<typename Pix>
-Image<Pix>::Image( const Image<Pix> &img ) 
+template<typename Pix, int ColorSpace>
+Image<Pix, ColorSpace>::Image( const Image<Pix,ColorSpace> &img ) 
 {
   width = img.width ;
   height = img.height ;
@@ -89,8 +96,8 @@ Image<Pix>::Image( const Image<Pix> &img )
   std::memcpy ( img.raw_data, raw_data, data_size ) ;
 }
 
-template<typename Pix> 
-Image<Pix>::Image (unsigned int w, unsigned int h)
+template<typename Pix, int ColorSpace> 
+Image<Pix, ColorSpace>::Image (unsigned int w, unsigned int h)
 {
   width = w;
   height = h;
@@ -103,33 +110,33 @@ Image<Pix>::Image (unsigned int w, unsigned int h)
     throw "new[] error" ;
 }
 
-template<typename Pix>
-Image<Pix>::~Image ()
+template<typename Pix, int ColorSpace>
+Image<Pix, ColorSpace>::~Image ()
 {
 	delete[] raw_data;
 }
 
-template <typename Pix>
-Pix* Image<Pix>::operator[] ( unsigned int line ) {
+template <typename Pix, int ColorSpace>
+Pix* Image<Pix, ColorSpace>::operator[] ( unsigned int line ) {
 	return &(raw_data[line*width] ) ;
 }
 
-template <typename Pix>
-Pix& Image<Pix>::operator()(ImageRef coord)
+template <typename Pix, int ColorSpace>
+Pix& Image<Pix, ColorSpace>::operator()(ImageRef coord)
 {
 	return raw_data[coord.x+coord.y*width] ;
 }
 
-template <typename Pix>
-Pix& Image<Pix>::operator()(unsigned int x, unsigned int y)
+template <typename Pix, int ColorSpace>
+Pix& Image<Pix, ColorSpace>::operator()(unsigned int x, unsigned int y)
 {
 	return raw_data[x+y*width] ;
 }
 
-template<typename Pix >
-Image<Pix>* Image<Pix>::clone() {
-	Image<Pix>* img ;
-	img = new Image<Pix>(width,height) ;
+template<typename Pix, int ColorSpace>
+Image<Pix,ColorSpace>* Image<Pix,ColorSpace>::clone() {
+	Image<Pix,ColorSpace>* img ;
+	img = new Image<Pix,ColorSpace>(width,height) ;
 	std::memcpy ( img->raw_data, raw_data, data_size ) ;
 	return img ;
 }
