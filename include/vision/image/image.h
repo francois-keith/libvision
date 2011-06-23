@@ -64,6 +64,7 @@ public:
   Pix& operator()(unsigned int x, unsigned int y ) ;
 
   Image<Pix,ColorSpace>* clone() ;
+  void copy( Image<Pix,ColorSpace> *img ) ;
 
 };
 
@@ -140,6 +141,15 @@ Image<Pix,ColorSpace>* Image<Pix,ColorSpace>::clone() {
 	std::memcpy ( img->raw_data, raw_data, data_size ) ;
 	return img ;
 }
+
+template<typename Pix, int ColorSpace>
+void Image<Pix,ColorSpace>::copy( Image<Pix,ColorSpace> *src ) {
+	
+	if ( data_size == src->data_size )
+		std::memcpy ( raw_data, src->raw_data, data_size ) ;
+	return ;
+}
+
 
 }
 
