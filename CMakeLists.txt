@@ -41,6 +41,7 @@ endforeach()
 
 find_package( Eigen3 2.9)
 find_package( ImageMagick COMPONENTS Magick++ ) 
+find_package( Boost 1.40.0 COMPONENTS serialization )
 
 
 
@@ -59,11 +60,14 @@ configure_file (
 include_directories( "${CMAKE_CURRENT_SOURCE_DIR}/include"
 		     "${CMAKE_CURRENT_SOURCE_DIR}/src"
 	             "${CMAKE_CURRENT_BINARY_DIR}"
-		     "${EIGEN3_INCLUDE_DIR}" )
+		     "${EIGEN3_INCLUDE_DIR}" 
+             "${Boost_INCLUDE_DIRS}")
 
 if ( ImageMagick_Magick++_FOUND )		 
 	include_directories ( "${ImageMagick_Magick++_INCLUDE_DIR}" )
 endif ( ImageMagick_Magick++_FOUND )		 
+
+link_directories("${Boost_LIBRARY_DIRS}")
 
 
 ### File Lists
@@ -85,12 +89,18 @@ file( GLOB visionconfig "vision-config/*.cpp" )
 
 add_library( "vision" SHARED ${src} ${hdr} )
 
+target_link_libraries( "vision" ${Boost_LIBRARIES} )
+
 add_executable( "vision-config" ${visionconfig}  ${hdr} )
 
 
 if ( ImageMagick_Magick++_FOUND )		 
-	target_link_libraries ( "vision" "${ImageMagick_Magick++_LIBRARIES}" ) 
+	target_link_libraries ( "vision" "${ImageMagick_Magick++_LIBRARY}" ) 
 endif ( ImageMagick_Magick++_FOUND )		 
+
+### Tests programs
+
+add_subdirectory( "test" )
 
 ### INSTAll
 
