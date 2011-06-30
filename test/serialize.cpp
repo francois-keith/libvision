@@ -5,6 +5,8 @@
 #include <sstream>
 #include <ctime>
 
+/* The aim of this test is to test the serialization and show how to use it */
+
 using namespace vision;
 
 void usage(const char * prog_name)

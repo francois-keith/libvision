@@ -82,8 +82,13 @@ private:
     ar & pixels;
     ar & size;
     ar & pixel_size;
+    /* This is needed if you load an image with an empty image or an image with a different resolution*/
+    if(!raw_data || pixels*pixel_size !=  data_size) 
+    { 
+      delete raw_data;
+      raw_data = new Pix[pixels]; 
+    } 
     ar & data_size;
-    if(!raw_data) { raw_data = new Pix[pixels]; } /* This is needed if you load an image with an empty image */
     ar & boost::serialization::make_binary_object(raw_data, data_size);
   }
 
