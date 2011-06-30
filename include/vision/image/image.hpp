@@ -79,3 +79,4 @@ void Image<Pix,ColorSpace>::copy( Image<Pix,ColorSpace> *src ) {
 		std::memcpy ( raw_data, src->raw_data, data_size ) ;
 	return ;
 }
+

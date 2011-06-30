@@ -2,9 +2,13 @@
 #define VL_IMAGE_H
 
 #include <cstring>
+#include <fstream>
 #include <iostream>
 
 #include <vision/image/imageref.h>
+
+#include <boost/serialization/serialization.hpp>
+#include <boost/serialization/binary_object.hpp>
 
 namespace vision {
 
@@ -34,8 +38,8 @@ namespace vision {
 // Read them, use them, but don't modify them in your code, or you'll 
 // segfault ! You've been warned :)
 
-
-template < typename Pix, int ColorSpace > class Image
+template < typename Pix, int ColorSpace > 
+class Image
 {
 
 public:
@@ -53,6 +57,7 @@ public:
 
 public:
 
+  Image () : width(0), height(0), pixels(0), size(0,0), pixel_size(0), data_size(0), raw_data(0) {}
   Image (ImageRef size) ;
   Image (const Image<Pix,ColorSpace> &img) ;
   Image (unsigned int width, unsigned int height) ;
@@ -65,6 +70,22 @@ public:
 
   Image<Pix,ColorSpace>* clone() ;
   void copy( Image<Pix,ColorSpace> *img ) ;
+
+private:
+
+  friend class boost::serialization::access;
+  template<class Archive>
+  void serialize(Archive & ar, const unsigned int version)
+  {
+    ar & width;
+    ar & height;
+    ar & pixels;
+    ar & size;
+    ar & pixel_size;
+    ar & data_size;
+    if(!raw_data) { raw_data = new Pix[pixels]; } /* This is needed if you load an image with an empty image */
+    ar & boost::serialization::make_binary_object(raw_data, data_size);
+  }
 
 };
 

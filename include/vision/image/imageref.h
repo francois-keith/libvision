@@ -3,6 +3,8 @@
 
 #include <stdlib.h>
 
+#include <boost/serialization/serialization.hpp>
+
 namespace vision {
 
 class ImageRef
@@ -38,6 +40,16 @@ public:
   int mag_squared() ;
 
   int area() ;
+
+private:
+  
+  friend class boost::serialization::access;
+  template<class Archive>
+  void serialize(Archive & ar, const unsigned int version)
+  {
+    ar & x;
+    ar & y;
+  }
 
 };
 
