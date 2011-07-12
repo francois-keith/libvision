@@ -48,6 +48,11 @@ find_package( Boost 1.40.0 COMPONENTS serialization )
 ### Configure a header file to pass some of the CMake settings
 ### to the source code
 
+IF(ImageMagick_Magick++_FOUND)
+SET(ImageMagick_Magick++_FOUND_BOOL 1)
+ELSE(ImageMagick_Magick++_FOUND)
+SET(ImageMagick_Magick++_FOUND_BOOL 0)
+ENDIF(ImageMagick_Magick++_FOUND)
 
 configure_file (
 	"${PROJECT_SOURCE_DIR}/config.h.in"

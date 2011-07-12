@@ -19,13 +19,13 @@ int main ( int argc, char** argv ) {
 	
 	if ( strcmp( argv[i], "--libs") == 0 ) {
 			cout << " -l" << Vision_LIBS ;
-			#if ( Vision_IMAGEMAGICK == TRUE )
+			#if ( Vision_IMAGEMAGICK == 1 )
 				cout << " "<< Vision_IMAGEMAGICK_LIBS ;
 			#endif
 	} else if ( strcmp(argv[i], "--cxxflags") == 0 ) {
 			cout << " -I" << Vision_HEADERS_PATH ;
 		 	cout << " -I" << Vision_EIGEN3_HEADERS_PATH ;	
-			#if ( Vision_IMAGEMAGICK == TRUE )
+			#if ( Vision_IMAGEMAGICK == 1 )
 				cout << " -I" << Vision_IMAGEMAGICK_HEADERS_PATH ;
 		        #endif	
 	} else if ( strcmp(argv[i], "--ldflags") == 0 ) {

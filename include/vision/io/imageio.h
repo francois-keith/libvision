@@ -29,7 +29,7 @@ void deserialize(const std::string & from_file, Image<Pix, ColorSpace> & img)
 
 } // namespace vision
 
-#if (Vision_IMAGEMAGICK == True ) 
+#if (Vision_IMAGEMAGICK == 1 ) 
 
 #include <Magick++.h>
 

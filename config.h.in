@@ -5,7 +5,7 @@
 #define Vision_VERSION_MAJOR @vision_VERSION_MAJOR@
 #define Vision_VERSION_MINOR @vision_VERSION_MINOR@
 
-#define Vision_IMAGEMAGICK @ImageMagick_Magick++_FOUND@
+#define Vision_IMAGEMAGICK @ImageMagick_Magick++_FOUND_BOOL@
 
 #define Vision_HEADERS_PATH   		"@INSTALL_HEADERS_PATH@"
 #define Vision_LIBS_PATH       		"@INSTALL_LIB_PATH@"
