@@ -1,5 +1,5 @@
-#ifndef VL_VISION_H
-#define VL_VISION_H
+#ifndef VL_CONFIG_H
+#define VL_CONFIG_H
 
 
 #define Vision_VERSION_MAJOR @vision_VERSION_MAJOR@
