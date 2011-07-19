@@ -12,7 +12,7 @@ namespace vision
 {
 
 template<typename Pix, int ColorSpace>
-void serialize(const std::string & to_file, Image<Pix, ColorSpace> & img)
+void serialize(const std::string & to_file, const Image<Pix, ColorSpace> & img)
 {
     std::ofstream ofs(to_file.c_str());
     boost::archive::binary_oarchive oa(ofs);
