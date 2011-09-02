@@ -21,6 +21,8 @@ class ImageRef
   friend ImageRef operator*(const ImageRef &, const int & ) ;
   friend ImageRef operator/(const ImageRef &, const int & ) ;
 
+  friend std::ostream& operator << (std::ostream& out, const ImageRef& ref_in); 
+
 public:
 
   unsigned int x;
@@ -52,6 +54,7 @@ private:
   }
 
 };
+
 
 }
 

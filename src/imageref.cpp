@@ -90,6 +90,11 @@ bool operator!=( const ImageRef &c1, const ImageRef &c2) {
 	return ( c1.x != c2.x ) || (c1.y != c2.y ) ;
 }
 
+std::ostream & operator<<(std::ostream & out, const ImageRef & ref_in)
+{
+    out << ref_in.x << " , " << ref_in.y << std::endl;
+    return out;
+}
 
 int ImageRef::area() {
 	return x*y ;
