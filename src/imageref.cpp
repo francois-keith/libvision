@@ -92,7 +92,7 @@ bool operator!=( const ImageRef &c1, const ImageRef &c2) {
 
 std::ostream & operator<<(std::ostream & out, const ImageRef & ref_in)
 {
-    out << ref_in.x << " , " << ref_in.y << std::endl;
+    out << ref_in.x << " , " << ref_in.y; 
     return out;
 }
 
