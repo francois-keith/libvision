@@ -1,6 +1,6 @@
 #include <vision/image/image.h>
 #include <vision/io/imageio.h>
-
+#include <math.h>
 #include <iostream>
 #include <sstream>
 #include <ctime>
@@ -61,7 +61,7 @@ int main(int argc, char * argv[])
     // *** Recherche meilleur Candidat 
     
     double result ;
-    result = 4*WIN_SIZE*WIN_SIZE*65536 ; 
+    result = 1e16 ; 
    
     for ( int ii = x0 - SEARCH_SIZE; ii <= x0 + SEARCH_SIZE; ii++ )
     for ( int jj = y0 - SEARCH_SIZE; jj <= y0 + SEARCH_SIZE; jj++ ) {
@@ -71,8 +71,22 @@ int main(int argc, char * argv[])
 	for ( int wx = -WIN_SIZE; wx <= WIN_SIZE; wx++ )
 	for ( int wy = -WIN_SIZE; wy <= WIN_SIZE; wy++ ) {
 
-		double diff = ( RGB_2_GRAY ( (*img_right)[jj+wy][ii+wx] ) - RGB_2_GRAY ( (*img_left)[y0+wy][x0+wx] ) ) ;
-		score += diff * diff ;
+		uint32_t P_left  = (*img_left)[y0+wy][x0+wx] ;
+		uint32_t P_right = (*img_right)[jj+wy][ii+wx] ;
+
+		int32_t R_left = P_left & 0x0000FF ;
+		int32_t G_left = P_left & 0x00FF00 >> 8 ;
+		int32_t B_left = P_left & 0xFF0000 >> 16 ;
+
+		int32_t R_right = P_right & 0x0000FF ;
+		int32_t G_right = P_right & 0x00FF00 >> 8 ;
+		int32_t B_right = P_right & 0xFF0000 >> 16 ;
+
+		double R_diff = fabs( R_left - R_right ) ;
+		double G_diff = fabs( G_left - G_right ) ;
+		double B_diff = fabs( B_left - B_right ) ;
+		
+		score += R_diff + G_diff + B_diff ;
 
 	}
 
