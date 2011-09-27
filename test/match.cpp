@@ -5,6 +5,10 @@
 #include <sstream>
 #include <ctime>
 
+#define SEARCH_SIZE 30 
+#define WIN_SIZE 5
+
+
 /* The aim of this test is to test the correspondance between two images */
 
 using namespace vision;
@@ -14,6 +18,17 @@ void usage(const char * prog_name)
     std::cerr << "[Usage] : " << prog_name << " [left image] [right image]" << std::endl;
 }
 
+double RGB_2_GRAY ( uint32_t P1 ) {
+
+	uint32_t R = P1 & 0x0000FF ;
+	uint32_t G = P1 & 0x00FF00 >> 8 ;
+	uint32_t B = P1 & 0xFF0000 >> 16 ;
+//	std::cout << R << " " << G << " " << B << std::endl ;
+	return ( R + G + B ) / 3.0 ;
+
+}
+
+
 int main(int argc, char * argv[])
 {
     if(argc <= 2)
@@ -22,21 +37,73 @@ int main(int argc, char * argv[])
         return 1;
     }
 
+    unsigned int x0 = 100 ;
+    unsigned int y0 = 200 ;
+
+    unsigned int Rx = x0 ;
+    unsigned int Ry = y0 ;
+
     std::stringstream ss_left;
     ss_left << argv[1];
-    std::string img_left = ss_left.str();
+    std::string simg_left = ss_left.str();
     
     std::stringstream ss_right;
-    ss_left << argv[2];
-    std::string img_left = ss_right.str();
+    ss_right << argv[2];
+    std::string simg_right = ss_right.str();
     
 
-    Image<uint32_t, RGB> * img_left = load_color<uint32_t, RGB>(img_left);
-    Image<uint32_t, RGB> * img_right = load_color<uint32_t, RGB>(img_right);
+    Image<uint32_t, RGB> * img_left = load_color<uint32_t, RGB>(simg_left);
+    Image<uint32_t, RGB> * img_right = load_color<uint32_t, RGB>(simg_right);
+
+    (*img_left)[y0][x0] = 0x00FF00 ;
+
+    
+    // *** Recherche meilleur Candidat 
+    
+    double result ;
+    result = 4*WIN_SIZE*WIN_SIZE*65536 ; 
+   
+    for ( int ii = x0 - SEARCH_SIZE; ii <= x0 + SEARCH_SIZE; ii++ )
+    for ( int jj = y0 - SEARCH_SIZE; jj <= y0 + SEARCH_SIZE; jj++ ) {
+
+	double score = 0 ;
+
+	for ( int wx = -WIN_SIZE; wx <= WIN_SIZE; wx++ )
+	for ( int wy = -WIN_SIZE; wy <= WIN_SIZE; wy++ ) {
+
+		double diff = ( RGB_2_GRAY ( (*img_right)[jj+wy][ii+wx] ) - RGB_2_GRAY ( (*img_left)[y0+wy][x0+wx] ) ) ;
+		score += diff * diff ;
+
+	}
+
+	if ( score < result ) {
+		result = score ;
+		Rx = ii ;
+		Ry = jj ;
+
+	}
 
 
-    save_color<uint32_t, RGB>("/tmp/test.png", img_left);
-    save_color<uint32_t, RGB>("/tmp/test.png", img_right);
+    }
+    
+    // *** Dessin du cadre de recherche
+
+    for ( int i = - SEARCH_SIZE ; i <= SEARCH_SIZE ; i ++ ) {
+
+    	(*img_right)[y0 + i][x0 + SEARCH_SIZE ] = 0x0000FF ;
+    	(*img_right)[y0 + i][x0 - SEARCH_SIZE ] = 0x0000FF ;
+    	(*img_right)[y0 - SEARCH_SIZE][x0 + i ] = 0x0000FF ;
+    	(*img_right)[y0 + SEARCH_SIZE][x0 + i ] = 0x0000FF ;
+    }
+    
+    // *** Resultat de la recherche
+    
+	(*img_right)[Ry][Rx] = 0x00FF00 ;
+
+    // 
+
+    save_color<uint32_t, RGB>("/tmp/LEFT.png", img_left);
+    save_color<uint32_t, RGB>("/tmp/RIGHT.png", img_right);
 
 
     delete img_left;
