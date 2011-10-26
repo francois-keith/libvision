@@ -48,18 +48,18 @@ Image<Pix, ColorSpace>::~Image ()
 }
 
 template <typename Pix, int ColorSpace>
-Pix* Image<Pix, ColorSpace>::operator[] ( unsigned int line ) {
+Pix* Image<Pix, ColorSpace>::operator[] ( unsigned int line ) const {
 	return &(raw_data[line*width] ) ;
 }
 
 template <typename Pix, int ColorSpace>
-Pix& Image<Pix, ColorSpace>::operator()(ImageRef coord)
+Pix& Image<Pix, ColorSpace>::operator()(ImageRef coord) const
 {
 	return raw_data[coord.x+coord.y*width] ;
 }
 
 template <typename Pix, int ColorSpace>
-Pix& Image<Pix, ColorSpace>::operator()(unsigned int x, unsigned int y)
+Pix& Image<Pix, ColorSpace>::operator()(unsigned int x, unsigned int y) const
 {
 	return raw_data[x+y*width] ;
 }

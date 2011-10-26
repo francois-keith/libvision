@@ -64,9 +64,9 @@ public:
   
   ~Image ();
 
-  Pix* operator[](unsigned int line) ;
-  Pix& operator()(ImageRef coord) ;
-  Pix& operator()(unsigned int x, unsigned int y ) ;
+  Pix* operator[](unsigned int line) const;
+  Pix& operator()(ImageRef coord) const;
+  Pix& operator()(unsigned int x, unsigned int y ) const;
 
   Image<Pix,ColorSpace>* clone() ;
   void copy( Image<Pix,ColorSpace> *img ) ;
