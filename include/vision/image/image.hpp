@@ -80,3 +80,11 @@ void Image<Pix,ColorSpace>::copy( Image<Pix,ColorSpace> *src ) {
 	return ;
 }
 
+template<typename Pix, int ColorSpace>
+void Image<Pix,ColorSpace>::copy( const Image<Pix,ColorSpace> & src ) {
+	
+	if ( data_size == src.data_size )
+		std::memcpy ( raw_data, src.raw_data, data_size ) ;
+	return ;
+}
+

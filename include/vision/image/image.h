@@ -70,6 +70,7 @@ public:
 
   Image<Pix,ColorSpace>* clone() ;
   void copy( Image<Pix,ColorSpace> *img ) ;
+  void copy( const Image<Pix,ColorSpace> & img ) ;
 
 private:
 
