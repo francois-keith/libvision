@@ -24,7 +24,7 @@ Image<Pix, ColorSpace>::Image( const Image<Pix,ColorSpace> &img )
   raw_data = new Pix[pixels];
   if (raw_data == NULL)
     throw "new[] error" ;
-  std::memcpy ( img.raw_data, raw_data, data_size ) ;
+  std::memcpy ( raw_data, img.raw_data, data_size ) ;
 }
 
 template<typename Pix, int ColorSpace> 
