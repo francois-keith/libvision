@@ -93,8 +93,13 @@ file( GLOB visionconfig "vision-config/*.cpp" )
 ### Targets
 
 add_library( "vision" SHARED ${src} ${hdr} )
-
 target_link_libraries( "vision" ${Boost_LIBRARIES} )
+
+IF(WIN32)
+add_library( "vision-static" STATIC ${src} ${hdr} )
+set_target_properties( "vision-static" PROPERTIES OUTPUT_NAME "vision")
+target_link_libraries( "vision-static" ${Boost_LIBRARIES} )
+ENDIF(WIN32)
 
 add_executable( "vision-config" ${visionconfig}  ${hdr} )
 

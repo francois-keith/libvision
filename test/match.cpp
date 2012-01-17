@@ -5,7 +5,22 @@
 #include <sstream>
 #include <ctime>
 
+#ifndef WIN32
 #include <sys/time.h>
+#else
+//TODO Code real replacements
+#include <stdint.h>
+struct timeval
+{
+	uint32_t tv_sec;
+	uint32_t tv_usec;
+};
+void gettimeofday(timeval & tv, void *)
+{
+	tv.tv_sec = 0;
+	tv.tv_usec = 0;
+}
+#endif
 
 #define SEARCH_SIZE 30 
 #define WIN_SIZE 5
