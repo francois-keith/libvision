@@ -7,26 +7,9 @@
 
 #ifndef WIN32
 #include <sys/time.h>
-#else
-#include <stdint.h>
-#include <windows.h>
-
-void gettimeofday(timeval * tv, void *)
-{
-	if(tv)
-	{
-		FILETIME ft;
-		GetSystemTimeAsFileTime(&ft);
-		uint64_t t_now;
-		t_now |= ft.dwHighDateTime;
-		t_now <<= 32;
-		t_now |= ft.dwLowDateTime;
-		t_now /= 10; /* back to microsec */
-		tv->tv_sec  = t_now / 1000000ul;
-		tv->tv_usec = t_now % 1000000ul;
-	}
-}
 #endif
+
+#include <vision/win32/windows.h>
 
 #define SEARCH_SIZE 30 
 #define WIN_SIZE 5
