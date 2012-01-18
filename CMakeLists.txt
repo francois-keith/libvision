@@ -147,11 +147,9 @@ install( FILES ${hdr_io}
 install( FILES ${hdr_color}
 	    DESTINATION ${INSTALL_HEADERS_PATH}/vision/color/${name}
 	    COMPONENT main )
-IF(WIN32)
 install( FILES ${hdr_win32}
 	    DESTINATION ${INSTALL_HEADERS_PATH}/vision/win32/${name}
 	    COMPONENT main )
-ENDIF(WIN32)
 
 ### Copy examples to share/lib_vision/examples
 

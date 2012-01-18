@@ -1,7 +1,8 @@
 #include <vision/win32/windows.h>
 
+#ifdef WIN32
+
 #include <stdint.h>
-#include <iostream>
 
 # if defined(_MSC_VER) || defined(_MSC_EXTENSIONS)
 #  define DELTA_EPOCH_IN_MICROSECS  11644473600000000Ui64
@@ -40,3 +41,6 @@ void usleep(unsigned int usec)
 {
 	Sleep(usec/1000);
 }
+
+#endif
+
