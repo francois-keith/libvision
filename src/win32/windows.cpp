@@ -1,21 +1,34 @@
 #include <vision/win32/windows.h>
 
 #include <stdint.h>
+#include <iostream>
 
-void gettimeofday(timeval * tv, void *)
+# if defined(_MSC_VER) || defined(_MSC_EXTENSIONS)
+#  define DELTA_EPOCH_IN_MICROSECS  11644473600000000Ui64
+# else
+#  define DELTA_EPOCH_IN_MICROSECS  11644473600000000ULL
+# endif
+
+void gettimeofday(struct timeval *tv, void *)
 {
-	if(tv)
-	{
-		FILETIME ft;
-		GetSystemTimeAsFileTime(&ft);
-		uint64_t t_now;
-		t_now |= ft.dwHighDateTime;
-		t_now <<= 32;
-		t_now |= ft.dwLowDateTime;
-		t_now /= 10; /* back to microsec */
-		tv->tv_sec  = t_now / 1000000ul;
-		tv->tv_usec = t_now % 1000000ul;
-	}
+  FILETIME ft;
+  unsigned __int64 tmpres = 0;
+  static int tzflag;
+
+  if (NULL != tv)
+    {
+      GetSystemTimeAsFileTime(&ft);
+
+      tmpres |= ft.dwHighDateTime;
+      tmpres <<= 32;
+      tmpres |= ft.dwLowDateTime;
+
+      /*converting file time to unix epoch*/
+      tmpres /= 10;  /*convert into microseconds*/
+      tmpres -= DELTA_EPOCH_IN_MICROSECS;
+      tv->tv_sec = (long)(tmpres / 1000000UL);
+      tv->tv_usec = (long)(tmpres % 1000000UL);
+    }
 }
 
 void sleep(unsigned int sec)

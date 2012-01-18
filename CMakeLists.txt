@@ -86,6 +86,7 @@ file( GLOB hdr_camera  "include/vision/camera/*.h*")
 file( GLOB hdr_corners "include/vision/corners/*.h*") 
 file( GLOB hdr_io      "include/vision/io/*.h*") 
 file( GLOB hdr_color   "include/vision/color/*.h*") 
+file( GLOB hdr_win32   "include/vision/win32/*.h")
 
 file( GLOB visionconfig "vision-config/*.cpp" )
 
@@ -143,6 +144,11 @@ install( FILES ${hdr_io}
 install( FILES ${hdr_color}
 	    DESTINATION ${INSTALL_HEADERS_PATH}/vision/color/${name}
 	    COMPONENT main )
+IF(WIN32)
+install( FILES ${hdr_win32}
+	    DESTINATION ${INSTALL_HEADERS_PATH}/vision/win32/${name}
+	    COMPONENT main )
+ENDIF(WIN32)
 
 ### Copy examples to share/lib_vision/examples
 
