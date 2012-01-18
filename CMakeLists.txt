@@ -107,6 +107,9 @@ add_executable( "vision-config" ${visionconfig}  ${hdr} )
 
 if ( ImageMagick_Magick++_FOUND )		 
 	target_link_libraries ( "vision" "${ImageMagick_Magick++_LIBRARY}" ) 
+	IF(WIN32)
+		target_link_libraries ( "vision-static" "${ImageMagick_Magick++_LIBRARY}" ) 
+	ENDIF(WIN32)
 endif ( ImageMagick_Magick++_FOUND )		 
 
 ### Tests programs
