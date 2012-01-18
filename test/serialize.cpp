@@ -24,9 +24,9 @@ int main(int argc, char * argv[])
     std::stringstream ss;
     ss << argv[1];
     std::string img_file = ss.str();
-    if(img_file == "/tmp/test.png")
+    if(img_file == "test.png")
     {
-        std::cerr << "[Warning] I will use /tmp/test.png in this test and overwrite your image, do you want to continue ? (y/n) ";
+        std::cerr << "[Warning] I will use test.png in this test and overwrite your image, do you want to continue ? (y/n) ";
         char c = 0;
         while(c != 'y' && c != 'n')
         {
@@ -45,15 +45,15 @@ int main(int argc, char * argv[])
 
     Image<uint32_t, RGB> * img_orig = load_color<uint32_t, RGB>(img_file);
 
-    serialize("/tmp/test.bin", *img_orig);
+    serialize("test.bin", *img_orig);
 
     delete img_orig;
 
     Image<uint32_t, RGB> * new_img = new Image<uint32_t, RGB>();
 
-    deserialize("/tmp/test.bin", *new_img);
+    deserialize("test.bin", *new_img);
 
-    save_color<uint32_t, RGB>("/tmp/test.png", new_img);
+    save_color<uint32_t, RGB>("test.png", new_img);
 
     delete new_img;
 
