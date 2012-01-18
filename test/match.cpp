@@ -8,17 +8,23 @@
 #ifndef WIN32
 #include <sys/time.h>
 #else
-//TODO Code real replacements
 #include <stdint.h>
-struct timeval
+#include <windows.h>
+
+void gettimeofday(timeval * tv, void *)
 {
-	uint32_t tv_sec;
-	uint32_t tv_usec;
-};
-void gettimeofday(timeval & tv, void *)
-{
-	tv.tv_sec = 0;
-	tv.tv_usec = 0;
+	if(tv)
+	{
+		FILETIME ft;
+		GetSystemTimeAsFileTime(&ft);
+		uint64_t t_now;
+		t_now |= ft.dwHighDateTime;
+		t_now <<= 32;
+		t_now |= ft.dwLowDateTime;
+		t_now /= 10; /* back to microsec */
+		tv->tv_sec  = t_now / 1000000ul;
+		tv->tv_usec = t_now % 1000000ul;
+	}
 }
 #endif
 
@@ -46,7 +52,7 @@ inline void time_diff(const timeval & tv_in, const timeval & tv_out, timeval & t
     }
 }
 
-inline void change_pixel(vision::Image<uint32_t, RGB> & img, int y, int x, uint32_t value)
+inline void change_pixel(vision::Image<uint32_t, vision::RGB> & img, int y, int x, uint32_t value)
 {
     if(x >= 0 && x < img.width && y >= 0 && y < img.height)
     {
@@ -140,9 +146,9 @@ int main(int argc, char * argv[])
 		int32_t G_right = P_right & 0x00FF00 >> 8 ;
 		int32_t B_right = P_right & 0xFF0000 >> 16 ;
 
-		double R_diff = fabs( R_left - R_right ) ;
-		double G_diff = fabs( G_left - G_right ) ;
-		double B_diff = fabs( B_left - B_right ) ;
+		double R_diff = fabs( (double)R_left - (double)R_right ) ;
+		double G_diff = fabs( (double)G_left - (double)G_right ) ;
+		double B_diff = fabs( (double)B_left - (double)B_right ) ;
 		
 		score += R_diff + G_diff + B_diff ;
 

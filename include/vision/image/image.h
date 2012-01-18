@@ -12,14 +12,14 @@
 
 namespace vision {
 
-#define DEPTH		-1
-#define TEMPERATURE	-2
-#define DISPARITY	-3
-#define MONO    	-4
-#define RGB		-5
-#define RGBA		-6
-#define HSV		-7
-#define YUV		-8
+const int DEPTH       = -1;
+const int TEMPERATURE = -2;
+const int DISPARITY   = -3;
+const int MONO        = -4;
+const int RGB         = -5;
+const int RGBA        = -6;
+const int HSV         = -7;
+const int YUV         = -8;
 
 // *************************************************
 // ***
