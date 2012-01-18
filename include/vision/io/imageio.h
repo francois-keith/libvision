@@ -14,7 +14,7 @@ namespace vision
 template<typename Pix, int ColorSpace>
 void serialize(const std::string & to_file, const Image<Pix, ColorSpace> & img)
 {
-    std::ofstream ofs(to_file.c_str());
+    std::ofstream ofs(to_file.c_str(), std::ios::binary);
     boost::archive::binary_oarchive oa(ofs);
     oa << img;
 }
@@ -22,7 +22,7 @@ void serialize(const std::string & to_file, const Image<Pix, ColorSpace> & img)
 template<typename Pix, int ColorSpace>
 void deserialize(const std::string & from_file, Image<Pix, ColorSpace> & img)
 {
-    std::ifstream ifs(from_file.c_str());
+    std::ifstream ifs(from_file.c_str(), std::ios::binary);
     boost::archive::binary_iarchive ia(ifs);
     ia >> img;
 }
