@@ -1,9 +1,11 @@
 #include <vision/image/image.h>
 #include <vision/io/imageio.h>
 
-#include "webp/encode.h"
+#include <webp/encode.h>
 
-#include "zlib.h"
+#include <zlib.h>
+
+#include <lzma.h>
 
 #include <iostream>
 #include <sstream>
@@ -16,12 +18,15 @@
    Methods used:
     - WebP encoding
     - zlib compression
+    - lzma compression
 
    Bench results: (Updated: 2012/02/03)
-    - WebP (lossless): 1.2MB raw image -> 121kb compressed
-                       ~400 ms to compress (2.5 fps)
+    - WebP (lossless):      1.2MB raw image -> 121kb compressed
+                            ~400 ms to compress (2.5 fps)
     - zlib (Z_BEST_SPEED):  1.2MB raw image -> 720kb compressed
                             ~50 ms to compress (20 fps)
+    - lzma (-0 & no check): 1.2MB raw image -> 472kb compressed
+                            ~200 ms to compress (5 fps)
  */
 
 inline void time_diff(const timeval & tv_in, const timeval & tv_out, timeval & tv_diff)
@@ -131,7 +136,17 @@ int main(int argc, char * argv[])
     {
         std::cerr << "flush != Z_FINISH : not normal " << std::endl;
     }
-    std::cout << "zlib compressed size: " << img->data_size - strm.avail_out << std::endl;
+    unsigned int zsize = img->data_size - strm.avail_out;
+    std::cout << "zlib compressed size: " << zsize << std::endl;
+
+    /* lzma bench */
+    unsigned int out_pos = 0;
+    TIME_CALL(ret = lzma_easy_buffer_encode(0, LZMA_CHECK_NONE, NULL, (unsigned char*)(img->raw_data), img->data_size, zout, &out_pos, img->data_size));
+    if(ret != LZMA_OK)
+    {
+        std::cerr << "LZMA compression failed !" << std::endl;
+    }
+    std::cout << "LZMA compressed size: " << out_pos << std::endl;
 
     delete[] zout;
     delete img;
