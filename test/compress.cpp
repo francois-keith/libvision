@@ -139,6 +139,21 @@ int main(int argc, char * argv[])
     unsigned int zsize = img->data_size - strm.avail_out;
     std::cout << "zlib compressed size: " << zsize << std::endl;
 
+    strm.zalloc = Z_NULL;
+    strm.zfree  = Z_NULL;
+    strm.opaque = Z_NULL;
+    strm.avail_in = 0;
+    strm.next_in = Z_NULL;
+    inflateInit(&strm);
+    strm.avail_in = zsize;
+    strm.next_in = zout; 
+    vision::Image<uint32_t, vision::RGB> * zimg = new vision::Image<uint32_t, vision::RGB>(640,480);
+    strm.avail_out = img->data_size;
+    strm.next_out = (unsigned char*)(zimg->raw_data);
+    TIME_CALL(ret = inflate(&strm, Z_NO_FLUSH));
+    inflateEnd(&strm);
+    save_color("test.png", zimg);
+
     /* lzma bench */
     unsigned int out_pos = 0;
     TIME_CALL(ret = lzma_easy_buffer_encode(0, LZMA_CHECK_NONE, NULL, (unsigned char*)(img->raw_data), img->data_size, zout, &out_pos, img->data_size));
