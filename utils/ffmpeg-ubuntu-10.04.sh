@@ -1,5 +1,10 @@
-src_dir=/home/gergondet/devel-src
-dst_dir=/home/gergondet/devel
+src_dir=${HOME}/devel-src/third-parties
+dst_dir=${HOME}/devel
+
+if [ ! -d $src_dir ]
+then
+    mkdir -p $src_dir
+fi
 
 # yasm 1.2.0
 cd $src_dir
