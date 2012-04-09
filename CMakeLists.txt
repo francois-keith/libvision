@@ -52,6 +52,12 @@ IF(LIBAVCODEC_FOUND)
     LINK_DIRECTORIES(${LIBAVCODEC_LIBRARY_DIRS})
 ENDIF(LIBAVCODEC_FOUND)
 
+pkg_check_modules(LIBSWSCALE libswscale)
+IF(LIBSWSCALE_FOUND)
+    ADD_DEFINITIONS(${LIBSWSCALE_CFLAGS})
+    LINK_DIRECTORIES(${LIBSWSCALE_LIBRARY_DIRS})
+ENDIF(LIBSWSCALE_FOUND)
+
 ### Configure a header file to pass some of the CMake settings
 ### to the source code
 
@@ -84,7 +90,7 @@ link_directories("${Boost_LIBRARY_DIRS}")
 
 ### File Lists
 
-file( GLOB src "src/*.cpp" "src/fast/*.cpp" "src/win32/windows.cpp" )
+file( GLOB src "src/*.cpp" "src/fast/*.cpp" "src/win32/windows.cpp" "src/io/*.cpp" )
 file( GLOB hdr "src/*.h*")
 
 file( GLOB hdr_global  "include/vision/*.h*")
@@ -105,6 +111,9 @@ target_link_libraries( "vision" ${Boost_LIBRARIES} )
 IF(LIBAVCODEC_FOUND)
     target_link_libraries( "vision" ${LIBAVCODEC_LIBRARIES} )
 ENDIF(LIBAVCODEC_FOUND)
+IF(LIBSWSCALE_FOUND)
+    target_link_libraries( "vision" ${LIBSWSCALE_LIBRARIES} )
+ENDIF(LIBSWSCALE_FOUND)
 
 IF(WIN32)
 add_library( "vision-static" STATIC ${src} ${hdr} )
