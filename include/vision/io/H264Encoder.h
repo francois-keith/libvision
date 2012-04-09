@@ -55,6 +55,33 @@ private:
 
 #pragma message ( "--- /!\\ --- You don't have libavcodec support with your libvision installation, don't use this header --- /!\\ ---")
 
+namespace vision 
+{
+
+struct H264EncoderResult
+{
+public:
+    int frame_size;
+    uint8_t * frame_data;
+}; 
+
+class H264Encoder
+{
+public:
+    H264Encoder(int width, int height, int fps) {}
+
+    ~H264Encoder() {}
+
+    H264EncoderResult Encode(vision::Image<uint32_t, vision::RGB> & img) 
+    {
+        res = {0,0};
+        return res;
+    }
+}; 
+
+} // namespace vision
+
+
 #endif
 
 #endif

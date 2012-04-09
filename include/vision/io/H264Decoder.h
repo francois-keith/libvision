@@ -52,6 +52,24 @@ private:
 
 #pragma message ( "--- /!\\ --- You don't have libavcodec support with your libvision installation, don't use this header --- /!\\ ---")
 
+namespace vision 
+{
+
+class H264Decoder
+{
+public:
+    H264Decoder(int width, int height) {}
+
+    ~H264Decoder() {}
+
+    int Decode(int frame_size, uint8_t * frame_data, vision::Image<uint32_t, vision::RGB> & img_out)
+    {
+        return -1;
+    }
+}; 
+
+} // namespace vision
+
 #endif
 
 #endif
