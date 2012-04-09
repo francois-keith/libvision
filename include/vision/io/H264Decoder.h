@@ -32,6 +32,8 @@ public:
 
     ~H264Decoder();
 
+    int Decode(int frame_size, uint8_t * frame_data, uint8_t * out);
+
     int Decode(int frame_size, uint8_t * frame_data, vision::Image<uint32_t, vision::RGB> & img_out);
 private:
     int m_width;

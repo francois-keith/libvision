@@ -42,8 +42,8 @@ H264Decoder::~H264Decoder()
     av_free(c);
     av_free(picture);
 }
-    
-int H264Decoder::Decode(int frame_size, uint8_t * frame_data, vision::Image<uint32_t, vision::RGB> & img_out)
+
+int H264Decoder::Decode(int frame_size, uint8_t * frame_data, uint8_t * out)
 {
     avpkt.size = frame_size;
     avpkt.data = frame_data;
@@ -53,9 +53,14 @@ int H264Decoder::Decode(int frame_size, uint8_t * frame_data, vision::Image<uint
     {
         return len;
     }
-    uint8_t *buf_out[4]={(uint8_t*)img_out.raw_data,NULL,NULL,NULL};
+    uint8_t *buf_out[4]={out,NULL,NULL,NULL};
     sws_scale(m_convert_ctx, (const uint8_t* const*)picture->data, picture->linesize, 0, m_height, buf_out, &m_stride);
     return len;
+}
+    
+int H264Decoder::Decode(int frame_size, uint8_t * frame_data, vision::Image<uint32_t, vision::RGB> & img_out)
+{
+    return Decode(frame_size, frame_data, (uint8_t*)img_out.raw_data);
 }
 
 } // namespace vision
