@@ -43,7 +43,14 @@ find_package( Eigen3 2.9)
 find_package( ImageMagick COMPONENTS Magick++ ) 
 find_package( Boost 1.40.0 COMPONENTS serialization )
 
-
+include(FindPkgConfig)
+pkg_check_modules(LIBAVCODEC libavcodec)
+SET(LIBAVCODEC_FOUND_NUMERAL 0)
+IF(LIBAVCODEC_FOUND)
+    SET(LIBAVCODEC_FOUND_NUMERAL 1)
+    ADD_DEFINITIONS(${LIBAVCODEC_CFLAGS})
+    LINK_DIRECTORIES(${LIBAVCODEC_LIBRARY_DIRS})
+ENDIF(LIBAVCODEC_FOUND)
 
 ### Configure a header file to pass some of the CMake settings
 ### to the source code
@@ -95,6 +102,9 @@ file( GLOB visionconfig "vision-config/*.cpp" )
 
 add_library( "vision" SHARED ${src} ${hdr} )
 target_link_libraries( "vision" ${Boost_LIBRARIES} )
+IF(LIBAVCODEC_FOUND)
+    target_link_libraries( "vision" ${LIBAVCODEC_LIBRARIES} )
+ENDIF(LIBAVCODEC_FOUND)
 
 IF(WIN32)
 add_library( "vision-static" STATIC ${src} ${hdr} )
