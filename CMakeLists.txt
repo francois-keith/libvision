@@ -12,6 +12,8 @@
 
 cmake_minimum_required (VERSION 2.6)
 
+set (CMAKE_LEGACY_CYGWIN_WIN32 1)
+
 project (vision)
 set (vision_VERSION_MAJOR 0)
 set (vision_VERSION_MINOR 1)
