@@ -45,20 +45,30 @@ find_package( Eigen3 2.9)
 find_package( ImageMagick COMPONENTS Magick++ ) 
 find_package( Boost 1.40.0 COMPONENTS serialization )
 
-include(FindPkgConfig)
-pkg_check_modules(LIBAVCODEC libavcodec)
-SET(LIBAVCODEC_FOUND_NUMERAL 0)
-IF(LIBAVCODEC_FOUND)
-    SET(LIBAVCODEC_FOUND_NUMERAL 1)
-    ADD_DEFINITIONS(${LIBAVCODEC_CFLAGS})
-    LINK_DIRECTORIES(${LIBAVCODEC_LIBRARY_DIRS})
-ENDIF(LIBAVCODEC_FOUND)
+IF(NOT WIN32)
+	include(FindPkgConfig)
+	pkg_check_modules(LIBAVCODEC libavcodec)
+	SET(LIBAVCODEC_FOUND_NUMERAL 0)
+	IF(LIBAVCODEC_FOUND)
+		SET(LIBAVCODEC_FOUND_NUMERAL 1)
+		ADD_DEFINITIONS(${LIBAVCODEC_CFLAGS})
+		LINK_DIRECTORIES(${LIBAVCODEC_LIBRARY_DIRS})
+	ENDIF(LIBAVCODEC_FOUND)
 
-pkg_check_modules(LIBSWSCALE libswscale)
-IF(LIBSWSCALE_FOUND)
-    ADD_DEFINITIONS(${LIBSWSCALE_CFLAGS})
-    LINK_DIRECTORIES(${LIBSWSCALE_LIBRARY_DIRS})
-ENDIF(LIBSWSCALE_FOUND)
+	pkg_check_modules(LIBSWSCALE libswscale)
+	IF(LIBSWSCALE_FOUND)
+		ADD_DEFINITIONS(${LIBSWSCALE_CFLAGS})
+		LINK_DIRECTORIES(${LIBSWSCALE_LIBRARY_DIRS})
+	ENDIF(LIBSWSCALE_FOUND)
+ELSE(NOT WIN32)
+### Assume we're compiling with libavcodec support and installed in directories reachable by visual studio
+SET(LIBAVCODEC_FOUND 1)
+SET(LIBAVCODEC_FOUND_NUMERAL 1)
+SET(LIBAVCODEC_LIBRARIES "avutil.lib;avcodec.lib;libx264.lib")
+
+SET(LIBSWSCALE_FOUND 1)
+SET(LIBSWSCALE_LIBRARIES "swscale.lib")
+ENDIF(NOT WIN32)
 
 ### Configure a header file to pass some of the CMake settings
 ### to the source code
@@ -80,6 +90,7 @@ configure_file (
 include_directories( "${CMAKE_CURRENT_SOURCE_DIR}/include"
 		     "${CMAKE_CURRENT_SOURCE_DIR}/src"
 	             "${CMAKE_CURRENT_BINARY_DIR}"
+				 "${CMAKE_INSTALL_PREFIX}/include"
 		     "${EIGEN3_INCLUDE_DIR}" 
              "${Boost_INCLUDE_DIRS}")
 
@@ -120,7 +131,7 @@ ENDIF(LIBSWSCALE_FOUND)
 IF(WIN32)
 add_library( "vision-static" STATIC ${src} ${hdr} )
 set_target_properties( "vision-static" PROPERTIES OUTPUT_NAME "vision")
-target_link_libraries( "vision-static" ${Boost_LIBRARIES} )
+target_link_libraries( "vision-static" ${Boost_LIBRARIES} ${LIBAVCODEC_LIBRARIES} ${LIBSWSCALE_LIBRARIES} )
 ENDIF(WIN32)
 
 add_executable( "vision-config" ${visionconfig}  ${hdr} )
