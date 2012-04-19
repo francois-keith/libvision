@@ -25,8 +25,8 @@ class ImageRef
 
 public:
 
-  unsigned int x;
-  unsigned int y;
+  int x;
+  int y;
 
   ImageRef(int X, int Y ) { x = X;  y = Y; }
   ImageRef() { x=0; y=0; }
