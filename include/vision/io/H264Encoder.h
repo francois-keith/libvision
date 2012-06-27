@@ -74,7 +74,7 @@ public:
 
     H264EncoderResult Encode(vision::Image<uint32_t, vision::RGB> & img) 
     {
-        res = {0,0};
+        H264Encoder res = {0,0};
         return res;
     }
 }; 
