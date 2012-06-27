@@ -106,6 +106,36 @@ namespace vision {
 
 }
 
+#else
+
+#pragma message "[Warning] You are including imageio without ImageMagick, using save/load_mono/color will result in exceptions"
+namespace vision {
+	
+
+	template<typename Pixel, int ColorSpace> 
+	void save_mono ( std::string filename, Image<Pixel,ColorSpace>* img ) {
+        std::throw(std::string("[Error] Calling save_mono without ImageMagick++ support"));
+	}
+	
+	template<typename Pixel, int ColorSpace> 
+	Image<Pixel,ColorSpace>* load_mono ( std::string filename ) {
+        std::throw(std::string("[Error] Calling load_mono without ImageMagick++ support"));
+	}
+
+	template<typename Pixel, int ColorSpace>
+	void save_color ( std::string filename, Image<Pixel,ColorSpace>* img ) {
+        std::throw(std::string("[Error] Calling save_color without ImageMagick++ support"));
+	}
+
+	template<typename Pixel, int ColorSpace>
+	Image<Pixel,ColorSpace>* load_color ( std::string filename ) {
+        std::throw(std::string("[Error] Calling load_color without ImageMagick++ support"));
+	}
+
+
+}
+
+
 #endif
 
 
