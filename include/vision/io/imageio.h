@@ -64,9 +64,9 @@ namespace vision {
 			R = C.redQuantum() ;
 			G = C.greenQuantum() ;
 			B = C.blueQuantum() ;
-			Value =  R / (double) QuantumRange ;
-			Value += G / (double) QuantumRange ;
-			Value += B / (double) QuantumRange ;
+			Value =  Magick::Color::scaleQuantumToDouble(R) ;
+			Value +=  Magick::Color::scaleQuantumToDouble(G) ;
+			Value += Magick::Color::scaleQuantumToDouble(B)  ;
 			Value /= 3.0 ;
 			(*img)[j][i] = mono2pixel<Pixel,ColorSpace>( Value ) ;
 		}
@@ -94,9 +94,9 @@ namespace vision {
 		for ( unsigned int i=0; i<img->width; i++ )
 		for ( unsigned int j=0; j<img->height; j++ ) {
 			Magick::Color C = src.pixelColor(i,j) ;
-			double R = C.redQuantum()   / (double) QuantumRange  ;
-			double G = C.greenQuantum() / (double) QuantumRange  ;
-			double B = C.blueQuantum()  / (double) QuantumRange  ;
+			double R = Magick::Color::scaleQuantumToDouble( C.redQuantum() )    ;
+			double G = Magick::Color::scaleQuantumToDouble( C.greenQuantum() ) ;
+			double B = Magick::Color::scaleQuantumToDouble( C.blueQuantum() ) ;
 			(*img)[j][i] = rgb2pixel<Pixel,ColorSpace>(R,G,B) ;
 		}
 		return img ;
