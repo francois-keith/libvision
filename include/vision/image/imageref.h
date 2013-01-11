@@ -22,6 +22,7 @@ class ImageRef
   friend ImageRef operator/(const ImageRef &, const int & ) ;
 
   friend std::ostream& operator << (std::ostream& out, const ImageRef& ref_in); 
+  friend std::istream& operator >> (std::istream& in, ImageRef& ref_out);
 
 public:
 

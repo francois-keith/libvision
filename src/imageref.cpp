@@ -96,6 +96,17 @@ std::ostream & operator<<(std::ostream & out, const ImageRef & ref_in)
     return out;
 }
 
+std::istream & operator>>(std::istream & in, ImageRef & ref_out)
+{
+    char tmp = 0;
+    in >> ref_out.x;
+    do 
+    {
+        in >> tmp;
+    } while(in && tmp != ',');
+    in >> ref_out.y;
+}
+
 int ImageRef::area() {
 	return x*y ;
 }
