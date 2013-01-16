@@ -85,6 +85,10 @@ namespace vision {
 		image.write( filename );
 	}
 
+    /* Specialization for depth image */
+    template<>
+    void save_color<uint16_t, vision::DEPTH> ( std::string filename , Image<uint16_t, vision::DEPTH> * img);
+
 	template<typename Pixel, int ColorSpace>
 	Image<Pixel,ColorSpace>* load_color ( std::string filename ) {
 		Magick::Image src( filename ) ;
