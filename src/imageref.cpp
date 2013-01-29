@@ -105,6 +105,7 @@ std::istream & operator>>(std::istream & in, ImageRef & ref_out)
         in >> tmp;
     } while(in && tmp != ',');
     in >> ref_out.y;
+	return in;
 }
 
 int ImageRef::area() {
