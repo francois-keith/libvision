@@ -67,7 +67,7 @@ H264EncoderResult H264Encoder::Encode(vision::Image<uint32_t, vision::RGB> & img
     m_pic_in.i_pts = pts;
 
     /* Encode */
-    res.frame_size = x264_encoder_encode(m_encoder, &nals, &i_nals, &m_pic_in, &m_pic_out);
+    while( (res.frame_size = x264_encoder_encode(m_encoder, &nals, &i_nals, &m_pic_in, &m_pic_out)) == 0 ) { m_pic_in.i_pts++; }
     res.frame_data = nals[0].p_payload;
 
     return res;
