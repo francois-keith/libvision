@@ -33,10 +33,22 @@ class H264Encoder
 public:
     H264Encoder(int width, int height, int fps);
 
+    H264Encoder(x264_param_t * param);
+
     ~H264Encoder();
 
-    H264EncoderResult Encode(vision::Image<uint32_t, vision::RGB> & img);
+    H264EncoderResult Encode(vision::Image<uint32_t, vision::RGB> & img, uint64_t pts = 0);
+
+    x264_picture_t * GetPicIn() { return &m_pic_in; }
+
+    x264_picture_t * GetPicOut() { return &m_pic_out; }
+
+    x264_param_t * GetParam() { return &m_param; }
+
+    x264_t * GetEncoder() { return m_encoder; }
 private:
+    void Init(x264_param_t * param);
+
     int m_width;
     int m_height;
     int m_fps;

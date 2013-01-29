@@ -31,7 +31,20 @@ H264Encoder::H264Encoder(int width, int height, int fps)
     m_param.b_annexb = 1;
     x264_param_apply_profile(&m_param, "baseline");
 
-    m_encoder = x264_encoder_open(&m_param);
+    Init(&m_param);
+}
+
+H264Encoder::H264Encoder(x264_param_t * param)
+{
+    Init(param);
+}
+
+void H264Encoder::Init(x264_param_t * param)
+{
+    m_encoder = x264_encoder_open(param);
+    m_width = param->i_width;
+    m_height = param->i_height;
+    m_stride = m_width*4;
     x264_picture_alloc(&m_pic_in, X264_CSP_I420, m_width, m_height);
     m_convert_ctx = sws_getContext(m_width, m_height, PIX_FMT_RGBA, m_width, m_height, PIX_FMT_YUV420P, SWS_FAST_BILINEAR, NULL, NULL, NULL);
 }
@@ -42,7 +55,7 @@ H264Encoder::~H264Encoder()
     x264_encoder_close(m_encoder);
 }
     
-H264EncoderResult H264Encoder::Encode(vision::Image<uint32_t, vision::RGB> & img)
+H264EncoderResult H264Encoder::Encode(vision::Image<uint32_t, vision::RGB> & img, uint64_t pts)
 {
     x264_nal_t* nals;
     int i_nals;
@@ -51,6 +64,7 @@ H264EncoderResult H264Encoder::Encode(vision::Image<uint32_t, vision::RGB> & img
     /* Convert from RGBA to YUV420P */
     uint8_t *buf_in[4]={(uint8_t*)img.raw_data,NULL,NULL,NULL};
     sws_scale(m_convert_ctx, (const uint8_t* const*)buf_in, &m_stride, 0, m_height, m_pic_in.img.plane, m_pic_in.img.i_stride);
+    m_pic_in.i_pts = pts;
 
     /* Encode */
     res.frame_size = x264_encoder_encode(m_encoder, &nals, &i_nals, &m_pic_in, &m_pic_out);
