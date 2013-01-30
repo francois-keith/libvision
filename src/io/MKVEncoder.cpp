@@ -1,3 +1,5 @@
+#ifndef WIN32
+
 #include <vision/io/MKVEncoder.h>
 
 #include <vision/io/H264Encoder.h>
@@ -124,4 +126,6 @@ void MKVEncoder::EncodeFrame(vision::Image<uint32_t, vision::RGB> & img)
 }
 
 } // namespace vision
+
+#endif // ifndef WIN32
 

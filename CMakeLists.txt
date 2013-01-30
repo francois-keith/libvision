@@ -109,8 +109,13 @@ link_directories("${Boost_LIBRARY_DIRS}")
 
 ### File Lists
 
-file( GLOB src "src/*.cpp" "src/fast/*.cpp" "src/win32/windows.cpp" "src/io/*.cpp" "src/io/output/*.c" )
+file( GLOB src "src/*.cpp" "src/fast/*.cpp" "src/win32/windows.cpp" "src/io/*.cpp" )
 file( GLOB hdr "src/*.h*")
+
+if(NOT WIN32)
+file(GLOB mkv_src "src/io/output/*.c")
+set(src $src $mkv_src)
+endif(NOT WIN32)
 
 file( GLOB hdr_global  "include/vision/*.h*")
 file( GLOB hdr_image   "include/vision/image/*.h*")
