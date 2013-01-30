@@ -109,7 +109,7 @@ link_directories("${Boost_LIBRARY_DIRS}")
 
 ### File Lists
 
-file( GLOB src "src/*.cpp" "src/fast/*.cpp" "src/win32/windows.cpp" "src/io/*.cpp" )
+file( GLOB src "src/*.cpp" "src/fast/*.cpp" "src/win32/windows.cpp" "src/io/*.cpp" "src/io/output/*.c" )
 file( GLOB hdr "src/*.h*")
 
 file( GLOB hdr_global  "include/vision/*.h*")
