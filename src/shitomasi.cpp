@@ -3,7 +3,7 @@
 
 #include <vision/corners/shitomasi.h>
 
-using namespace vision ;
+using namespace vision {
 
 double ShiTomasi_score ( Image<unsigned char, MONO> & image, int nHalfBoxSize, ImageRef irCenter)
 {
@@ -36,3 +36,4 @@ double ShiTomasi_score ( Image<unsigned char, MONO> & image, int nHalfBoxSize, I
   return 0.5 * (dXX + dYY - sqrt( (dXX + dYY) * (dXX + dYY) - 4 * (dXX * dYY - dXY * dXY) ));
 };
 
+}
