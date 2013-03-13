@@ -50,13 +50,11 @@ struct x264_param_t;
 class MKVEncoder
 {
 private:
-    MKVEncoder(const std::string & file_out, int width, int height, int fps) {}
-
-    MKVEncoder(const std::string & file_out, x264_param_t * param) {}
+    MKVEncoder(const std::string & file_out, int width, int height, int fps, unsigned int total_frame = 0) {}
 
     ~MKVEncoder() {}
 
-    void EncodeFrame(vision::Image<uint32_t, vision::RGB> & img, uint64_t pts = 0) {}
+    void EncodeFrame(vision::Image<uint32_t, vision::RGB> & img) {}
 }; 
 
 } // namespace vision
