@@ -27,6 +27,10 @@
 #ifndef X264_OUTPUT_H
 #define X264_OUTPUT_H
 
+#include "vision/config.h"
+
+#if Vision_HAS_LIBAVCODEC == 1
+
 #include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -51,5 +55,7 @@ typedef struct
 } cli_output_t;
 
 extern const cli_output_t mkv_output;
+
+#endif // HAS LIBAVCODEC
 
 #endif

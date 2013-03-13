@@ -24,6 +24,7 @@ namespace vision
 struct H264EncoderResult
 {
 public:
+    H264EncoderResult() : frame_size(0), frame_data(0) {}
     int frame_size;
     uint8_t * frame_data;
 }; 
@@ -73,6 +74,7 @@ namespace vision
 struct H264EncoderResult
 {
 public:
+    H264EncoderResult() : frame_size(0), frame_data(0) {}
     int frame_size;
     uint8_t * frame_data;
 }; 
@@ -86,7 +88,7 @@ public:
 
     H264EncoderResult Encode(vision::Image<uint32_t, vision::RGB> & img) 
     {
-        H264Encoder res = {0,0};
+        H264EncoderResult res;
         return res;
     }
 }; 

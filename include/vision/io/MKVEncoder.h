@@ -38,10 +38,16 @@ private:
 
 #pragma message ( "--- /!\\ --- You don't have libavcodec support with your libvision installation, don't use this header --- /!\\ ---")
 
+#include <string>
+#include <vision/image/image.h>
+#include <stdint.h>
+
 namespace vision 
 {
 
-class H264Encoder
+struct x264_param_t;
+
+class MKVEncoder
 {
 private:
     MKVEncoder(const std::string & file_out, int width, int height, int fps) {}

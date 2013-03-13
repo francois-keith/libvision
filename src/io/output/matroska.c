@@ -23,6 +23,10 @@
  * For more information, contact us at licensing@x264.com.
  *****************************************************************************/
 
+#include "vision/config.h"
+
+#if Vision_HAS_LIBAVCODEC == 1
+
 #include "output.h"
 #include <string.h>
 #include "matroska_ebml.h"
@@ -213,3 +217,5 @@ static int close_file( hnd_t handle, int64_t largest_pts, int64_t second_largest
 }
 
 const cli_output_t mkv_output = { open_file, set_param, write_headers, write_frame, close_file };
+
+#endif // VISION HAS LIBAVCODEC

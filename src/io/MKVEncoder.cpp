@@ -1,4 +1,7 @@
 #ifndef WIN32
+#include "vision/config.h"
+
+#if Vision_HAS_LIBAVCODEC == 1
 
 #include <vision/io/MKVEncoder.h>
 
@@ -126,6 +129,8 @@ void MKVEncoder::EncodeFrame(vision::Image<uint32_t, vision::RGB> & img)
 }
 
 } // namespace vision
+
+#endif // HAS LIBAVCODEC
 
 #endif // ifndef WIN32
 

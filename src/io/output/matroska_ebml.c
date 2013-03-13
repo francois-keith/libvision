@@ -23,6 +23,10 @@
  * For more information, contact us at licensing@x264.com.
  *****************************************************************************/
 
+#include "vision/config.h"
+
+#if Vision_HAS_LIBAVCODEC == 1
+
 #include "output.h"
 #include "matroska_ebml.h"
 
@@ -525,3 +529,5 @@ int mk_close( mk_writer *w, int64_t last_delta )
     free( w );
     return ret;
 }
+
+#endif // HAS LIBAVCODEC
