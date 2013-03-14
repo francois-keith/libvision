@@ -2,10 +2,25 @@
 #define _H_H264ENCODER_H_
 
 #include <vision/config.h>
+#include <vision/image/image.h>
+
+#include <stdint.h>
+
+namespace vision
+{
+
+struct H264EncoderResult
+{
+public:
+    H264EncoderResult() : frame_size(0), frame_data(0) {}
+    int frame_size;
+    uint8_t * frame_data;
+};
+
+}
 
 #if Vision_HAS_LIBAVCODEC == 1
 
-#include <stdint.h>
 #ifndef UINT64_C
 typedef uint64_t UINT64_C;
 #endif
@@ -16,18 +31,8 @@ extern "C"
 #include "libswscale/swscale.h"
 }
 
-#include <vision/image/image.h>
-
 namespace vision 
 {
-
-struct H264EncoderResult
-{
-public:
-    H264EncoderResult() : frame_size(0), frame_data(0) {}
-    int frame_size;
-    uint8_t * frame_data;
-}; 
 
 class H264Encoder
 {
@@ -70,14 +75,6 @@ private:
 
 namespace vision 
 {
-
-struct H264EncoderResult
-{
-public:
-    H264EncoderResult() : frame_size(0), frame_data(0) {}
-    int frame_size;
-    uint8_t * frame_data;
-}; 
 
 class H264Encoder
 {

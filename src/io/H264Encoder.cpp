@@ -59,7 +59,7 @@ H264EncoderResult H264Encoder::Encode(vision::Image<uint32_t, vision::RGB> & img
 {
     x264_nal_t* nals;
     int i_nals;
-    H264EncoderResult res = {0, 0};
+    H264EncoderResult res;
 
     /* Convert from RGBA to YUV420P */
     uint8_t *buf_in[4]={(uint8_t*)img.raw_data,NULL,NULL,NULL};
