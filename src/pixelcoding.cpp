@@ -18,11 +18,12 @@ unsigned char mono2pixel<unsigned char, MONO>( double value )
 
 template<>
 void pixel2rgb<unsigned char, MONO>
-	( unsigned char value, double &red, double &green, double &blue ) {
+	( unsigned char value, double &red, double &green, double &blue, double & alpha ) {
 
 	red = value / 255.0 ;
 	blue = red ;
 	green = red ;
+    alpha = 0;
 }
 
 template<>
@@ -45,12 +46,13 @@ double pixel2mono<unsigned int, RGB>( unsigned int value )
 
 
 template<>
-void pixel2rgb<unsigned int, RGB>(unsigned int value, double &R, double &G, double &B) 
+void pixel2rgb<unsigned int, RGB>(unsigned int value, double &R, double &G, double &B, double &A) 
 {
 	unsigned char* tab = (unsigned char*)  &value ;
 	R  =  tab[0] / 255.0;
 	G  =  tab[1] / 255.0;
-	B  =  tab[2] / 255.0 ;
+	B  =  tab[2] / 255.0;
+    A  =  tab[3] / 255.0;
 }
 
 

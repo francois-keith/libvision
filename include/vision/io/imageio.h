@@ -75,12 +75,14 @@ namespace vision {
 
 	template<typename Pixel, int ColorSpace>
 	void save_color ( std::string filename, Image<Pixel,ColorSpace>* img ) {
-		Magick::Image image( Magick::Geometry( img->width, img->height), "black" ) ;
-		double R,G,B ;
+		Magick::Image image( Magick::Geometry( img->width, img->height), Magick::Color(MaxRGB, MaxRGB, MaxRGB, MaxRGB) ) ;
+		double R,G,B,A ;
+        Magick::ColorRGB color;
 		for (unsigned int i=0; i<img->width; i++ )
 		for (unsigned int j=0; j<img->height; j++ ) {
-			pixel2rgb<Pixel, ColorSpace>((*img)[j][i], R, G, B ) ; 
-     			image.pixelColor(i,j, Magick::ColorRGB(R,G,B) ) ; 
+			pixel2rgb<Pixel, ColorSpace>((*img)[j][i], R, G, B, A ) ;
+            color.red(R); color.green(G); color.blue(B); color.alpha(A);
+            image.pixelColor(i,j, color) ;
 		}
 		image.write( filename );
 	}
