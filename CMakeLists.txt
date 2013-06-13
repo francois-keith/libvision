@@ -12,9 +12,12 @@
 
 cmake_minimum_required (VERSION 2.6)
 
+INCLUDE(cmake/base.cmake)
+INCLUDE(cmake/cpack.cmake)
+INCLUDE(cmake/eigen.cmake)
+
 set (CMAKE_LEGACY_CYGWIN_WIN32 1)
 
-project (vision)
 set (vision_VERSION_MAJOR 0)
 set (vision_VERSION_MINOR 1)
 
@@ -28,44 +31,32 @@ set ( INSTALL_AR_PATH  lib )
 set ( INSTALL_HEADERS_PATH include )
 
 
-# Make relative paths absolute (needed later on)
+# name of the project
+SET(PROJECT_NAME vision)
+SET(PROJECT_CONTACT )
+SET(PROJECT_DESCRIPTION "")
+SET(PROJECT_URL "https://github.com/LIRMM-Beziers/libvision")
 
-foreach(p LIB BIN HEADERS AR)
-    set(var INSTALL_${p}_PATH)
-    if(NOT IS_ABSOLUTE "${${var}}")
-        set(${var} "${CMAKE_INSTALL_PREFIX}/${${var}}")
-    endif()
-endforeach()
+set( CMAKE_MODULE_PATH  ${CMAKE_MODULE_PATH}  "${PROJECT_SOURCE_DIR}/cmake" ) 
 
+
+SET(CXX_DISABLE_WERROR True)
+SET(CXX_DISABLE_WALL True)
+SET(CMAKE_VERBOSE_MAKEFILE ON)
+
+SETUP_PROJECT()
 
 
 ### Search for Lib/Headers
 
-find_package( Eigen3 2.9)
+SEARCH_FOR_EIGEN()
 find_package( ImageMagick COMPONENTS Magick++ ) 
 find_package( Boost 1.40.0 COMPONENTS serialization )
 
 IF(NOT WIN32)
-    include(FindPkgConfig)
-    pkg_check_modules(LIBAVCODEC libavcodec)
-    SET(LIBAVCODEC_FOUND_NUMERAL 0)
-    IF(LIBAVCODEC_FOUND)
-        SET(LIBAVCODEC_FOUND_NUMERAL 1)
-        ADD_DEFINITIONS(${LIBAVCODEC_CFLAGS})
-        LINK_DIRECTORIES(${LIBAVCODEC_LIBRARY_DIRS})
-    ENDIF(LIBAVCODEC_FOUND)
-
-    pkg_check_modules(LIBSWSCALE libswscale)
-    IF(LIBSWSCALE_FOUND)
-        ADD_DEFINITIONS(${LIBSWSCALE_CFLAGS})
-        LINK_DIRECTORIES(${LIBSWSCALE_LIBRARY_DIRS})
-    ENDIF(LIBSWSCALE_FOUND)
-
-    pkg_check_modules(LIBX264 x264)
-    IF(LIBX264_FOUND)
-        ADD_DEFINITIONS(${LIBX264_CFLAGS})
-        LINK_DIRECTORIES(${LIBX264_LIBRARY_DIRS})
-    ENDIF(LIBX264_FOUND)
+    ADD_OPTIONAL_DEPENDENCY(libavcodec)
+    ADD_OPTIONAL_DEPENDENCY(libswscale)
+    ADD_OPTIONAL_DEPENDENCY(x264)
 ELSE(NOT WIN32)
 ### Assume we're compiling with libavcodec support and installed in directories reachable by visual studio
 SET(LIBAVCODEC_FOUND 1)
@@ -96,8 +87,6 @@ configure_file (
 include_directories( "${CMAKE_CURRENT_SOURCE_DIR}/include"
              "${CMAKE_CURRENT_SOURCE_DIR}/src"
                  "${CMAKE_CURRENT_BINARY_DIR}"
-                 "${CMAKE_INSTALL_PREFIX}/include"
-             "${EIGEN3_INCLUDE_DIR}" 
              "${Boost_INCLUDE_DIRS}")
 
 if ( ImageMagick_Magick++_FOUND )         
@@ -133,14 +122,15 @@ file( GLOB visionconfig "vision-config/*.cpp" )
 add_library( "vision" SHARED ${src} ${hdr} )
 target_link_libraries( "vision" ${Boost_LIBRARIES} )
 IF(LIBAVCODEC_FOUND)
-    target_link_libraries( "vision" ${LIBAVCODEC_LIBRARIES} )
+    PKG_CONFIG_USE_DEPENDENCY(vision libavcodec)
 ENDIF(LIBAVCODEC_FOUND)
 IF(LIBSWSCALE_FOUND)
-    target_link_libraries( "vision" ${LIBSWSCALE_LIBRARIES} )
+    PKG_CONFIG_USE_DEPENDENCY(vision libswscale)
 ENDIF(LIBSWSCALE_FOUND)
-IF(LIBX264_FOUND)
-    target_link_libraries( "vision" ${LIBX264_LIBRARIES} )
-ENDIF(LIBX264_FOUND)
+
+IF(X264_FOUND)
+    PKG_CONFIG_USE_DEPENDENCY(vision x264)
+ENDIF(X264_FOUND)
 
 IF(WIN32)
 add_library( "vision-static" STATIC ${src} ${hdr} )
@@ -208,5 +198,17 @@ configure_file(visionConfig.cmake.in "${PROJECT_BINARY_DIR}/visionConfig.cmake" 
 
 install ( FILES "${PROJECT_BINARY_DIR}/visionConfig.cmake" 
       DESTINATION "${INSTALL_LIB_PATH}/vision" COMPONENT dev )  
-        
+
+# Add dependency towards the library in the pkg-config file.
+PKG_CONFIG_APPEND_LIBS("vision")
+PKG_CONFIG_APPEND_CFLAGS("-I${Eigen_INCLUDE_DIR}")
+
+# if image magick has been found, add the flags in the .pc file
+if ( ImageMagick_Magick++_FOUND )         
+  PKG_CONFIG_APPEND_CFLAGS("-I${ImageMagick_Magick++_INCLUDE_DIR}")
+  PKG_CONFIG_APPEND_LIBS_RAW("${ImageMagick_Magick++_LIBRARY}")
+endif ( ImageMagick_Magick++_FOUND )         
+
+SETUP_PROJECT_FINALIZE()
+SETUP_PROJECT_CPACK()
 

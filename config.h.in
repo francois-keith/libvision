@@ -16,6 +16,6 @@
 #define Vision_IMAGEMAGICK_HEADERS_PATH 	"@ImageMagick_INCLUDE_DIRS@"
 #define Vision_IMAGEMAGICK_LIBS			"@ImageMagick_LIBRARIES@"
 
-#define Vision_HAS_LIBAVCODEC @LIBAVCODEC_FOUND_NUMERAL@
+#define Vision_HAS_LIBAVCODEC @LIBAVCODEC_FOUND@
 
 #endif
