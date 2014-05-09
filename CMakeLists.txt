@@ -27,6 +27,15 @@ set ( INSTALL_LIB_PATH lib )
 set ( INSTALL_AR_PATH  lib )
 set ( INSTALL_HEADERS_PATH include )
 
+IF(WIN32)
+  SET(LIBDIR_KW "/LIBPATH:")
+  SET(LIBINCL_KW "")
+  SET(LIB_EXT ".lib")
+ELSEIF(UNIX)
+  SET(LIBDIR_KW "-L")
+  SET(LIBINCL_KW "-l")
+  SET(LIB_EXT "")
+ENDIF(WIN32)
 
 # Make relative paths absolute (needed later on)
 
@@ -133,12 +142,15 @@ file( GLOB visionconfig "vision-config/*.cpp" )
 add_library( "vision" SHARED ${src} ${hdr} )
 target_link_libraries( "vision" ${Boost_LIBRARIES} )
 IF(LIBAVCODEC_FOUND)
+    set(PKG_CONFIG_REQUIRES "${PKG_CONFIG_REQUIRES} libavcodec,")
     target_link_libraries( "vision" ${LIBAVCODEC_LIBRARIES} )
 ENDIF(LIBAVCODEC_FOUND)
 IF(LIBSWSCALE_FOUND)
+    set(PKG_CONFIG_REQUIRES "${PKG_CONFIG_REQUIRES} libswscale,")
     target_link_libraries( "vision" ${LIBSWSCALE_LIBRARIES} )
 ENDIF(LIBSWSCALE_FOUND)
 IF(LIBX264_FOUND)
+    set(PKG_CONFIG_REQUIRES "${PKG_CONFIG_REQUIRES} x264")
     target_link_libraries( "vision" ${LIBX264_LIBRARIES} )
 ENDIF(LIBX264_FOUND)
 
@@ -209,4 +221,9 @@ configure_file(visionConfig.cmake.in "${PROJECT_BINARY_DIR}/visionConfig.cmake" 
 install ( FILES "${PROJECT_BINARY_DIR}/visionConfig.cmake" 
       DESTINATION "${INSTALL_LIB_PATH}/vision" COMPONENT dev )  
         
+configure_file(libvision.pc.cmake "${PROJECT_BINARY_DIR}/vision.pc")
+
+install ( FILES "${PROJECT_BINARY_DIR}/vision.pc"
+      DESTINATION "${INSTALL_LIB_PATH}/pkgconfig")
+
 
