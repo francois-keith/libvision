@@ -134,7 +134,7 @@ file( GLOB hdr_io      "include/vision/io/*.h*")
 file( GLOB hdr_color   "include/vision/color/*.h*") 
 file( GLOB hdr_win32   "include/vision/win32/*.h")
 
-file( GLOB visionconfig "vision-config/*.cpp" )
+file( GLOB visionconfig "vision_config/*.cpp" )
 
 
 ### Targets
